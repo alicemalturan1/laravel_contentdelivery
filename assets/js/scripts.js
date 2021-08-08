@@ -160,7 +160,17 @@ jQuery(document).ready(function(){
             }).catch(()=>{show_error('Bir Hata Oluştu')});
         }else show_error('İşlem reddedildi');
     });
+    $(".change_pw-form").submit(function(e){
+        e.preventDefault();
 
+        axios.post('changepassword',$(this).serialize()).then((e)=>{
+            if (e.data.error){
+                show_error(e.data.message);
+            }else{
+                    show_success('Şifreniz başarıyla güncellendi');
+            }
+        });
+    });
     //overflow: hidden fix for ios
     function popupFunction(){
         if( device.ios()) {

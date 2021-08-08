@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -46,5 +49,68 @@ class UserController extends Controller
     }
     public function logout(){
         Auth::logout();
+    }
+    public function update(Request $req){
+        $now= Carbon::now();
+        $update_time=Carbon::parse(Auth::user()->updated_at);
+        $diff=$update_time->diffInMinutes($now,false);
+        if (!$diff<5){
+            $req->validate([
+                'name'=>'required',
+                'surname'=>'required',
+                'email'=>'required',
+
+            ]);
+            User::where('id',Auth::id())->update([
+                'name'=>$req->name,
+                'surname'=>$req->surname,
+                'email'=>$req->email,
+                'twitter_link'=>$req->twitter,
+                'facebook_link'=>$req->facebook,
+                'instagram_link'=>$req->instagram,
+                'about'=>$req->about,
+                'updated_at'=>Carbon::now()
+            ]);
+        }else{
+            return response()->json([
+                'error'=>'waittime_notexpired',
+                'err-code'=>'wt_ne-0',
+                'message'=>'5 Dakikada bir güncelleme yapabilirsiniz.'
+            ]);
+        }
+    }
+    public function change_password(Request $req){
+        $now= Carbon::now()->setTimezone('GMT');
+        $update_time=Carbon::parse(Auth::user()->updated_at);
+        $diff=$update_time->diffInMinutes($now,false);
+
+        if (!$diff<5){
+            $cu_pw=User::where('id',Auth::id())->first()->password;
+            if ($req->new_pw!=$req->new_pw_r){
+                return response()->json([
+                    'error'=>'newpass_notequal',
+                    'err-code'=>'np_ne-0',
+                    'message'=>'Yeni şifre ve tekrarı birbiri ile uyumsuz.'
+                ]);
+            }
+            if (Hash::check($req->current_pw,Auth::user()->password)){
+                User::where('id',Auth::id())->update([
+                    'password'=>bcrypt($req->new_pw),
+                    'updated_at'=>Carbon::now()
+                ]);
+            }else{
+                return response()->json([
+                    'error'=>'password_notmatch',
+                    'err-code'=>'pw_nm-0',
+                    'message'=>'Lütfen mevcut parolanızı doğru giriniz'
+                ]);
+            }
+        }else{
+            return response()->json([
+                'error'=>'waittime_notexpired',
+                'err-code'=>'wt_ne-0',
+                'message'=>'5 Dakikada bir güncelleme yapabilirsiniz.'
+            ]);
+        }
     }
 }

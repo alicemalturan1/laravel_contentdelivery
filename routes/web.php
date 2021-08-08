@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('client.home');
-});
+})->name('home');
 Route::post('/login',[\App\Http\Controllers\UserController::class,'login']);
 Route::post('/register',[\App\Http\Controllers\UserController::class,'register']);
 Route::group(['prefix'=>'content'],function(){
@@ -27,8 +27,15 @@ Route::group(['prefix'=>'content'],function(){
     Route::post('/report',[\App\Http\Controllers\ContentController::class,'report']);
     Route::get('/download/{id}',[\App\Http\Controllers\ContentController::class,'download']);
 });
-Route::get('/myprofile',function(){
-    return view("client.profile");
-})->middleware('auth');
+
+Route::group(['prefix'=>'/my','middleware'=>'auth'],function(){
+    Route::get('/profile',function(){
+        return view("client.profile");
+    });
+    Route::post('/update',[\App\Http\Controllers\UserController::class,'update']);
+    Route::post('/changepassword',[\App\Http\Controllers\UserController::class,'change_password']);
+});
+
+
 Route::post('/auth-check',[\App\Http\Controllers\UserController::class,'auth_check']);
 Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout']);
