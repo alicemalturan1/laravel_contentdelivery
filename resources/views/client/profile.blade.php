@@ -89,7 +89,7 @@
                                 </div>
 
                                 <button class="btn ">
-                                    <span>Profilimi Kaysdets</span>
+                                    <span>Profilimi Kaysdests</span>
                                 </button>
                                 <div class="profile-settings-data" style="margin-top:130px;">
                                     <h2 class="page-title">Parolamı Değiştir</h2>
