@@ -184,7 +184,24 @@ jQuery(document).ready(function(){
         $("#category-slider_profilepage a").removeClass('selected');
         $(this).addClass('selected');
 
+
     });
+    if(window.location.pathname=='/my/profile'){
+        var link= window.location.href;
+        link = link.split('#');
+        if(Object.values(link).length>1){
+            var tab = link[Object.values(link).length-1];
+
+            $("#category-slider_profilepage a").removeClass('selected');
+            $("#category-slider_profilepage a[data-tab_name="+tab+"]").addClass('selected');
+            var btn = $("#category-slider_profilepage a[data-tab_name="+tab+"]");
+
+
+            $(".profile-tabs .tab-item").fadeOut(150);
+            $(".profile-tabs .tab-item[data-tab_name="+tab+"]").fadeIn(100);
+        }
+
+    }
     $(".js_delete-favorite").click(function (e){
         e.preventDefault();
         axios.post('/content/fav',{"id":$(this).data('id')}).then((x)=>{

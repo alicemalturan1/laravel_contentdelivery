@@ -56,19 +56,19 @@
                                     </div>
                                 </div>
                                 <div class="category-slider" id="category-slider_profilepage">
-                                    <a href="#" class="category-slider-item selected">
+                                    <a href="#" class="category-slider-item selected" data-tab_name="edit_profile">
                                         <div class="_title">Profilimi Düzenle</div>
                                         <div class="_subtitle">Kişisel Bilgiler</div>
                                     </a>
-                                    <a href="#" class="category-slider-item ">
+                                    <a href="#" class="category-slider-item " data-tab_name="favourite">
                                         <div class="_title">Favorilerim</div>
                                         <div class="_subtitle">{{count(\App\Models\Favorite::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Favori İçerik</div>
                                     </a>
-                                    <a href="#" class="category-slider-item">
+                                    <a href="#" class="category-slider-item" data-tab_name="reports">
                                         <div class="_title">Raporlarım</div>
                                         <div class="_subtitle">{{count(\App\Models\Report::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Rapor</div>
                                     </a>
-                                    <a href="#" class="category-slider-item">
+                                    <a href="#" class="category-slider-item" data-tab_name="rates">
                                         <div class="_title">Değerlendirmelerim</div>
                                         <div class="_subtitle">{{count(\App\Models\Rate::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Değerlendirme</div>
                                     </a>
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                             <div class="profile-tabs">
-                               <div class="tab-item active">
+                               <div class="tab-item active" data-tab_name="edit_profile">
                                    <h1 class="page-title">Profilim</h1>
                                    <div class="profile-settings">
                                        <div class="profile-settings-userpic">
@@ -170,7 +170,7 @@
 
                                    </div>
                                </div>
-                                <div class="tab-item ">
+                                <div class="tab-item " data-tab_name="favourite">
                                     <div class="packages-archive profile_page_favourites">
                                         @foreach(\App\Models\Favorite::where('user_id',\Illuminate\Support\Facades\Auth::id())->get() as $item)
                                             @php $fav=\App\Models\Content::Where('id',$item->content_id)->first(); @endphp
@@ -190,6 +190,65 @@
                                             </a>
                                         @endforeach
 
+
+                                    </div>
+                                </div>
+                                <div class="tab-item" data-tab_name="reports" style="padding-top:20%;">
+                                    <div class="accordion-block">
+
+                                        @foreach(\App\Models\Report::where('user_id',\Illuminate\Support\Facades\Auth::id())->get() as $item)
+                                            @php
+                                                $reported_item=\App\Models\Content::where('id',$item->content_id)->first();
+                                                @endphp
+                                            <div class="accordion-item">
+                                                <div class="accordion-item-title" style="display: flex;justify-content: space-between;">
+                                                <span>
+                                                    {{$reported_item->title}} İçeriğini Raporladınız
+                                                </span>
+                                                </div>
+                                                <div class="accordion-item-content wp-content">
+                                                    <p>
+                                                    <ul class="checklist-ul">
+
+                                                        <li>
+                                                           Raporlama  Nedeni : {{$item->reason}}
+                                                        </li>
+                                                        <li class="disable-li">
+                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut.
+                                                        </li>
+                                                        <li class="plus-li">
+                                                            Lorem ipsum dolor sit amet, consectetur adipisicing.
+                                                        </li>
+                                                    </ul>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+
+                                    </div>
+                                </div>
+                                <div class="tab-item" data-tab_name="rates">
+                                    <div class="author-list">
+                                        @foreach(\App\Models\Rate::where('user_id',\Illuminate\Support\Facades\Auth::id())->get() as $item)
+                                            @php
+                                                $rated_item=\App\Models\Content::where('id',$item->content_id)->first();
+                                                $score=floor(($item->rate_ds+$item->rate_ls+$item->rate_ab)/3);
+
+                                                @endphp
+                                            <a class="author-list-item ">
+                                                <div class="author-image">
+                                                    <img src="{{$rated_item->preview_photo}}" alt="" class="image-cover">
+                                                </div>
+                                                <p class="author-name">
+                                                   {{$rated_item->title}}
+                                                </p>
+                                                <div class="author-posts">
+                                                    Puanlamanız {{$score}}
+
+                                                </div>
+                                            </a>
+                                        @endforeach
 
                                     </div>
                                 </div>
