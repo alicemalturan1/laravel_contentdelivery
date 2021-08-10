@@ -189,7 +189,8 @@ jQuery(document).ready(function(){
     if(window.location.pathname=='/my/profile'){
         var link= window.location.href;
         link = link.split('#');
-        if(Object.values(link).length>1){
+
+        if(Object.values(link).length>1&&link[Object.values(link).length-1]!=""){
             var tab = link[Object.values(link).length-1];
 
             $("#category-slider_profilepage a").removeClass('selected');
@@ -212,7 +213,8 @@ jQuery(document).ready(function(){
         e.preventDefault();
         var data = new FormData(this);
         axios.post('update_avatar',data).then((d)=>{
-            console.log(d.data);
+            if(d.data.error)show_error(d.data.message);
+            else {show_success('Avatarınız Başarıyla Güncellendi');setTimeout(()=>{window.location.reload()},600);}
         }).catch(()=>show_error('Bir hata oluştu'));
     });
     $(".update_profile_form").submit(function (e) {

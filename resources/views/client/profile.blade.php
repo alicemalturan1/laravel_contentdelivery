@@ -203,8 +203,9 @@
                                             <div class="accordion-item">
                                                 <div class="accordion-item-title" style="display: flex;justify-content: space-between;">
                                                 <span>
-                                                    {{$reported_item->title}} İçeriğini Raporladınız
+                                                    {{$reported_item->title}}
                                                 </span>
+                                                    <span class="date"></span>
                                                 </div>
                                                 <div class="accordion-item-content wp-content">
                                                     <p>
@@ -214,10 +215,11 @@
                                                            Raporlama  Nedeni : {{$item->reason}}
                                                         </li>
                                                         <li class="disable-li">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut.
+                                                           Henüz cevaplanmadı
                                                         </li>
                                                         <li class="plus-li">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing.
+                                                           Açıklama:
+                                                            {{$item->description}}
                                                         </li>
                                                     </ul>
                                                     </p>

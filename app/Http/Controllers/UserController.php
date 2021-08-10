@@ -53,7 +53,6 @@ class UserController extends Controller
     public function change_avatar(Request $req){
         $req->validate([
             'avatar'=>'required|mimes:jpg,png,jpeg',
-
         ]);
         $now= Carbon::now();
         $update_time=Carbon::parse(Auth::user()->updated_at);
@@ -67,6 +66,17 @@ class UserController extends Controller
             User::where('id',Auth::id())->update([
                 'avatar'=>$filepath,
                 'updated_at'=>Carbon::now()
+            ]);
+            return response()->json([
+                'success'=>true,
+                'update_time'=>Carbon::now('Europe/Istanbul'),
+                'success-token'=>bcrypt(time().Auth::id())
+            ]);
+        }else{
+            return response()->json([
+                'error'=>'waittime_notexpired',
+                'err-code'=>'wt_ne-0',
+                'message'=>'5 Dakikada bir güncelleme yapabilirsiniz.'
             ]);
         }
     }
