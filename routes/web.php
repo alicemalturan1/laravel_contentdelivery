@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::post('/login',[\App\Http\Controllers\UserController::class,'login']);
 Route::post('/register',[\App\Http\Controllers\UserController::class,'register']);
 Route::group(['prefix'=>'content'],function(){
-    Route::get('/{self}-{id}',[\App\Http\Controllers\ContentController::class,'view']);
+    Route::get('/{self}-{id}',[\App\Http\Controllers\ContentController::class,'view'])->name('content_view');
     Route::post('/like',[\App\Http\Controllers\ContentController::class,'like_toggle']);
     Route::post('/disslike',[\App\Http\Controllers\ContentController::class,'disslike_toggle']);
     Route::post('/fav',[\App\Http\Controllers\ContentController::class,'favorite'])->middleware('auth');
@@ -34,6 +34,7 @@ Route::group(['prefix'=>'/my','middleware'=>'auth'],function(){
     });
     Route::post('/update',[\App\Http\Controllers\UserController::class,'update']);
     Route::post('/changepassword',[\App\Http\Controllers\UserController::class,'change_password']);
+    Route::post('/update_avatar',[\App\Http\Controllers\UserController::class,'change_avatar']);
 });
 
 

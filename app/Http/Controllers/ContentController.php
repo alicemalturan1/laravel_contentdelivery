@@ -73,6 +73,7 @@ class ContentController extends Controller
             Favorite::insert([
                 'content_id'=>$req->id,
                 'user_id'=>Auth::id(),
+                'created_at'=>Carbon::now()->setTimezone('GMT+3')
             ]);
             return \response()->json(['favorite'=>"added"]);
         }

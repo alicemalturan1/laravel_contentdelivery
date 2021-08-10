@@ -146,6 +146,7 @@ jQuery(document).ready(function(){
     $(".download_button").click(function(){
 
     });
+
     $(".report_content-form").submit(function(e){
         e.preventDefault();
         if (!reported){
@@ -162,14 +163,47 @@ jQuery(document).ready(function(){
     });
     $(".change_pw-form").submit(function(e){
         e.preventDefault();
-
-        axios.post('changepassword',$(this).serialize()).then((e)=>{
-            if (e.data.error){
-                show_error(e.data.message);
-            }else{
+        if($(".change_pw-form input[name=new_pw]").val()!=$(".change_pw-form input[name=new_pw_r]").val()){show_error("Yeni şifreler birbiri ile uyumsuz");}
+        else{
+            axios.post('changepassword',$(this).serialize()).then((e)=>{
+                if (e.data.error){
+                    show_error(e.data.message);
+                }else{
                     show_success('Şifreniz başarıyla güncellendi');
-            }
-        });
+                }
+            });
+        }
+
+    });
+    $("#change_profile-userpic").change(()=>$("#c_avatar-form").submit());
+    $("#category-slider_profilepage a").click(function(e){
+        e.preventDefault();
+        var index=$(this).data('slick-index');
+        $(".profile-tabs .tab-item").fadeOut(150);
+        $(".profile-tabs .tab-item").eq(index).fadeIn(100);
+        $("#category-slider_profilepage a").removeClass('selected');
+        $(this).addClass('selected');
+
+    });
+    $(".js_delete-favorite").click(function (e){
+        e.preventDefault();
+        axios.post('/content/fav',{"id":$(this).data('id')}).then((x)=>{
+            window.location.reload();
+        }).catch(()=>show_error('Bir hata oluştu'));
+    });
+    $("#c_avatar-form").submit(function(e){
+        e.preventDefault();
+        var data = new FormData(this);
+        axios.post('update_avatar',data).then((d)=>{
+            console.log(d.data);
+        }).catch(()=>show_error('Bir hata oluştu'));
+    });
+    $(".update_profile_form").submit(function (e) {
+        e.preventDefault();
+        axios.post('update',$(this).serialize()).then((d)=>{
+            if(d.data.error)show_error(d.data.message);
+            else show_success('Profiliniz Başarıyla Güncellendi');
+        }).catch(()=>show_error('Bir Hata Oluştu'));
     });
     //overflow: hidden fix for ios
     function popupFunction(){

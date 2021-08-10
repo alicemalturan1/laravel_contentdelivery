@@ -50,17 +50,39 @@ class UserController extends Controller
     public function logout(){
         Auth::logout();
     }
-    public function update(Request $req){
+    public function change_avatar(Request $req){
+        $req->validate([
+            'avatar'=>'required|mimes:jpg,png,jpeg',
+
+        ]);
         $now= Carbon::now();
         $update_time=Carbon::parse(Auth::user()->updated_at);
         $diff=$update_time->diffInMinutes($now,false);
         if (!$diff<5){
-            $req->validate([
-                'name'=>'required',
-                'surname'=>'required',
-                'email'=>'required',
-
+            $o_name=$req->file('avatar')->getClientOriginalName();
+            $tpye_arr=explode('.',$o_name);
+            $new_fname='avatar-'.Crypt::encryptString(Auth::id()).'.'.end($tpye_arr);
+            $filepath='/storage/app/user-'.Auth::id().'/'.$new_fname;
+            $req->file('avatar')->storeAs('/user-'.Auth::id().'/',$new_fname);
+            User::where('id',Auth::id())->update([
+                'avatar'=>$filepath,
+                'updated_at'=>Carbon::now()
             ]);
+        }
+    }
+    public function update(Request $req){
+        $req->validate([
+            'name'=>'required',
+            'surname'=>'required',
+            'email'=>'required',
+
+        ]);
+        $now= Carbon::now();
+        $update_time=Carbon::parse(Auth::user()->updated_at);
+        $diff=$update_time->diffInMinutes($now,false);
+
+        if (!$diff<5){
+
             User::where('id',Auth::id())->update([
                 'name'=>$req->name,
                 'surname'=>$req->surname,
@@ -70,6 +92,11 @@ class UserController extends Controller
                 'instagram_link'=>$req->instagram,
                 'about'=>$req->about,
                 'updated_at'=>Carbon::now()
+            ]);
+            return response()->json([
+                'success'=>true,
+                'update_time'=>Carbon::now('Europe/Istanbul'),
+                'success-token'=>bcrypt(time().Auth::id())
             ]);
         }else{
             return response()->json([

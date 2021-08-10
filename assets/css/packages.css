@@ -69,9 +69,27 @@ https://hellodigi.ru/
   overflow: hidden;
   padding-top: 100px;
 }
+.profile-tabs .tab-item.active{
+    display: block;
+}
+.js_delete-favorite .trash-icon::before{
+    width: 12px;
+    height: 12px;
+    fill: #fff;
+    background: url(../img/delete.svg) center center no-repeat;
+    background-size: contain;
+    position: absolute;
+    content: '';
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.profile-tabs .tab-item{
+    display: none;
+}
 .packages-item {
   float: left;
-  width: 386px;
+  width: 336px;
   height: 495px;
   border-radius: 13px;
   position: relative;
@@ -86,14 +104,14 @@ https://hellodigi.ru/
   margin-bottom: 20px;
   transition: opacity 0.2s linear;
 }
+.pp-favs_date::before{
+    background: url(../img/date.svg) center center no-repeat;
+}
 .packages-item:hover {
   cursor: pointer;
 }
 .packages-item:hover * {
   cursor: pointer;
-}
-.packages-item:nth-child(3n) {
-  margin-right: 0;
 }
 .packages-item:before {
   position: absolute;
@@ -209,9 +227,6 @@ https://hellodigi.ru/
 .packages-slider .packages-item {
   opacity: 0;
   pointer-events: none;
-}
-.packages-slider .packages-item:nth-child(3n) {
-  margin-right: 20px;
 }
 .packages-slider .packages-item.slick-active {
   opacity: 1;
