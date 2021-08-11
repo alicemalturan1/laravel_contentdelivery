@@ -127,6 +127,31 @@ https://hellodigi.ru/
   left: 0;
   top: 13px;
 }
+.icon.not-answered{
+    position: relative;
+}
+.icon.not-answered:before{
+    width: 30px;
+    height: 30px;
+    background: #E1F0FF url(../img/check-list-before.svg) center center no-repeat;
+    background-size: 8px 8px;
+    border-radius: 50%;
+    position: absolute;
+
+    content: ' ';
+    left: -5%;
+
+    top:0;
+}
+
+.st_top_btn{
+    display: flex;
+    justify-content: flex-end;
+}
+.st_content{
+    padding-top:8px;
+    padding-bottom: 3px;
+}
 .wp-content ul.checklist-ul li:before {
   width: 20px;
   height: 20px;

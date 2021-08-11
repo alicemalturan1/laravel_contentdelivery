@@ -228,8 +228,10 @@
                                         <span>Profile</span>
                                     </a>
                                     <ul class="profile-ul first-level-menu" style="display: none;">
-                                        <li><a href="profile.html">Profilimi Düzenle</a></li>
-                                        <li><a href="favorites.html">Favorilerim</a></li>
+                                        <li><a  href="/my/profile">Profilimi Düzenle</a></li>
+                                        <li><a class="nav-profile_pagelinks" href="/my/profile#favourite">Favorilerim</a></li>
+                                        <li><a class="nav-profile_pagelinks" href="/my/profile#reports">Raporlarım</a></li>
+                                        <li><a class="nav-profile_pagelinks" href="/my/profile#rates">Değerlendirmelerim</a></li>
                                         <li><a href="/logout">Çıkış Yap</a></li>
                                     </ul>
                                 </li>

@@ -45,46 +45,47 @@
                 <div class="profile-section">
 
                     <div class="wrap wrap-center">
+
                         <div class="wrap_float">
-                            <div class="categories-panel">
-                                <div class="arrows">
-                                    <div class="arrow-area arrow-area-prev">
-                                        <div class="arrow prev"></div>
+                            <div class="profile-page_tabs_panel">
+                                <div class="categories-panel">
+                                    <div class="arrows">
+                                        <div class="arrow-area arrow-area-prev">
+                                            <div class="arrow prev"></div>
+                                        </div>
+                                        <div class="arrow-area arrow-area-next">
+                                            <div class="arrow next"></div>
+                                        </div>
                                     </div>
-                                    <div class="arrow-area arrow-area-next">
-                                        <div class="arrow next"></div>
+                                    <div class="category-slider" id="category-slider_profilepage">
+                                        <a href="#" class="category-slider-item selected" data-tab_name="edit_profile">
+                                            <div class="_title">Profilimi Düzenle</div>
+                                            <div class="_subtitle">Kişisel Bilgiler</div>
+                                        </a>
+                                        <a href="#" class="category-slider-item " data-tab_name="favourite">
+                                            <div class="_title">Favorilerim</div>
+                                            <div class="_subtitle">{{count(\App\Models\Favorite::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Favori İçerik</div>
+                                        </a>
+                                        <a href="#" class="category-slider-item" data-tab_name="reports">
+                                            <div class="_title">Raporlarım</div>
+                                            <div class="_subtitle">{{count(\App\Models\Report::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Rapor</div>
+                                        </a>
+                                        <a href="#" class="category-slider-item" data-tab_name="rates">
+                                            <div class="_title">Değerlendirmelerim</div>
+                                            <div class="_subtitle">{{count(\App\Models\Rate::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Değerlendirme</div>
+                                        </a>
+                                        <a href="#" class="category-slider-item" data-tab_name="support_tickets">
+                                            <div class="_title">Destek Biletlerim</div>
+                                            <div class="_subtitle">{{count(\App\Models\SupportTicket::where('user_id',\Illuminate\Support\Facades\Auth::id())->whereNull('reply_id')->get())}} Bilet</div>
+                                        </a>
+                                        <a href="#" class="category-slider-item" data-tab_name="downloads">
+                                            <div class="_title">İndirilenler</div>
+                                            <div class="_subtitle">{{count(\App\Models\Rate::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Değerlendirme</div>
+                                        </a>
+
+
+
                                     </div>
-                                </div>
-                                <div class="category-slider" id="category-slider_profilepage">
-                                    <a href="#" class="category-slider-item selected" data-tab_name="edit_profile">
-                                        <div class="_title">Profilimi Düzenle</div>
-                                        <div class="_subtitle">Kişisel Bilgiler</div>
-                                    </a>
-                                    <a href="#" class="category-slider-item " data-tab_name="favourite">
-                                        <div class="_title">Favorilerim</div>
-                                        <div class="_subtitle">{{count(\App\Models\Favorite::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Favori İçerik</div>
-                                    </a>
-                                    <a href="#" class="category-slider-item" data-tab_name="reports">
-                                        <div class="_title">Raporlarım</div>
-                                        <div class="_subtitle">{{count(\App\Models\Report::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Rapor</div>
-                                    </a>
-                                    <a href="#" class="category-slider-item" data-tab_name="rates">
-                                        <div class="_title">Değerlendirmelerim</div>
-                                        <div class="_subtitle">{{count(\App\Models\Rate::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Değerlendirme</div>
-                                    </a>
-                                    <a href="#" class="category-slider-item">
-                                        <div class="_title">Değerlendirmelerim</div>
-                                        <div class="_subtitle">{{count(\App\Models\Rate::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Değerlendirme</div>
-                                    </a>  <a href="#" class="category-slider-item">
-                                        <div class="_title">Değerlendirmelerim</div>
-                                        <div class="_subtitle">{{count(\App\Models\Rate::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Değerlendirme</div>
-                                    </a>  <a href="#" class="category-slider-item">
-                                        <div class="_title">Değerlendirmelerim</div>
-                                        <div class="_subtitle">{{count(\App\Models\Rate::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Değerlendirme</div>
-                                    </a>  <a href="#" class="category-slider-item">
-                                        <div class="_title">Değerlendirmelerim</div>
-                                        <div class="_subtitle">{{count(\App\Models\Rate::where('user_id',\Illuminate\Support\Facades\Auth::id())->get())}} Değerlendirme</div>
-                                    </a>
                                 </div>
                             </div>
                             <div class="profile-tabs">
@@ -189,7 +190,9 @@
                                                 </div>
                                             </a>
                                         @endforeach
-
+                                        @if(!count(\App\Models\Favorite::where('user_id',\Illuminate\Support\Facades\Auth::id())->get()))
+                                                <h6 class="page-title" style="text-align: center;">Favori Bulunamadı</h6>
+                                            @endif
 
                                     </div>
                                 </div>
@@ -205,23 +208,28 @@
                                                 <span>
                                                     {{$reported_item->title}}
                                                 </span>
-                                                    <span class="date"></span>
+
                                                 </div>
                                                 <div class="accordion-item-content wp-content">
-                                                    <p>
+
                                                     <ul class="checklist-ul">
 
                                                         <li>
                                                            Raporlama  Nedeni : {{$item->reason}}
                                                         </li>
-                                                        <li class="disable-li">
-                                                           Henüz cevaplanmadı
-                                                        </li>
-                                                        <li class="plus-li">
-                                                           Açıklama:
-                                                            {{$item->description}}
-                                                        </li>
+
+
                                                     </ul>
+
+
+                                                        <h6 style="text-align: center;"> Açıklama:</h6>
+                                                      <p style="text-align: center;">  {{$item->description}}</p>
+
+                                                    <p style="text-align:center;margin-top:5%;">
+                                                        <span style="font-size: 0.8rem;">
+                                                        Henüz Cevaplanmadı
+                                                        </span>
+
                                                     </p>
                                                 </div>
                                             </div>
@@ -229,6 +237,9 @@
 
 
                                     </div>
+                                    @if(!count(\App\Models\Report::where('user_id',\Illuminate\Support\Facades\Auth::id())->get()))
+                                        <h6 class="page-title" style="text-align: center;">Rapor Bulunamadı</h6>
+                                    @endif
                                 </div>
                                 <div class="tab-item" data-tab_name="rates">
                                     <div class="author-list">
@@ -247,6 +258,163 @@
                                                 </p>
                                                 <div class="author-posts">
                                                     Puanlamanız {{$score}}
+
+                                                </div>
+                                            </a>
+                                        @endforeach
+
+                                    </div>
+                                    @if(!count(\App\Models\Rate::where('user_id',\Illuminate\Support\Facades\Auth::id())->get()))
+                                        <h6 class="page-title" style="text-align: center;">Değerlendirme Bulunamadı</h6>
+                                    @endif
+                                </div>
+                                <div class="tab-item" data-tab_name="support_tickets">
+                                        <div class="st_top_btn">
+                                            <a class="login-link getModal" data-href="#support-ticket_modal"  >
+                                                Oluştur
+                                            </a>
+                                        </div>
+                                    <div style="display: none;">
+                                        <div class="modal modal_default modal_order" id="support-ticket_modal">
+                                            <div class="modal_wrap">
+                                                <h2 class="title">Destek Bileti</h2>
+                                                <div class="subtitle">
+                                                 Yardıma ihtiyaç duyduğunuzda bizimle iletişime bu form üzerinden geçebilirsiniz.
+
+                                                </div>
+                                                <div class="modal-form">
+
+                                                    <div class="input-wrap white-label fullwidth">
+                                                        <div class="filter-item" style="width: 100%!important;">
+                                                            <div class="filter-item-field">
+
+                                                                <div class="filter-item-value">
+                                                                    <span class="selected-text">Konu</span>
+                                                                    <div class="filter-arrow"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="filter-item-options" >
+                                                                <div class="options-list radio-list" style="overflow-x: hidden;">
+                                                                    <input type="radio" id="duration-1" name="reason" value="Hesap">
+                                                                    <label for="duration-1">Hesap</label>
+
+                                                                    <input type="radio" id="duration-2" name="reason" value="İçerik">
+                                                                    <label for="duration-2">İçerik</label>
+
+                                                                    <input type="radio" id="duration-3" name="reason" value="Erişim">
+                                                                    <label for="duration-3">Erişim</label>
+
+
+                                                                </div>
+                                                                <div class="filter-btn-wrap">
+                                                                    <div class="filter-btn apply-btn">Uygula</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="input-wrap fullwidth white-label">
+                                                        <input type="text" class="input" name="title" placeholder="Başlık">
+                                                    </div>
+
+                                                    <div class="input-wrap white-label fullwidth">
+                                                        <textarea name="description" style="resize: none;height: auto;"  class="input" placeholder="Açıklama" cols="30" rows="10"></textarea>
+                                                    </div>
+
+                                                    <button class="btn submit-btn">
+                                                        <span>Destek Bileti Oluştur</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal_close"></div>
+                                        </div>
+                                    </div>
+                                    <div class="st_content">
+                                        @if(!count(\App\Models\SupportTicket::where('user_id',\Illuminate\Support\Facades\Auth::id())->whereNull('reply_id')->get()))
+                                            <h6 class="page-title" style="text-align: center;">Bilet Bulunamadı</h6>
+                                        @endif
+
+                                    @foreach(\App\Models\SupportTicket::where('user_id',\Illuminate\Support\Facades\Auth::id())->whereNull('reply_id')->get() as $item)
+
+                                            <div class="accordion-item">
+                                                <div class="accordion-item-title" style="display: flex;justify-content: space-between;">
+                                                <span>
+                                                    {{$item->title}}
+                                                </span>
+
+                                                </div>
+                                                <div class="accordion-item-content wp-content">
+
+                                                    <ul class="checklist-ul">
+
+                                                        <li>
+                                                            Konu : {{$item->reason}}
+                                                        </li>
+
+
+                                                    </ul>
+
+
+                                                    <h6 style="text-align: center;"> Açıklama:</h6>
+                                                    <p style="text-align: center;">  {{$item->description}}</p>
+                                                    @foreach(\App\Models\SupportTicket::where('reply_id',$item->id)->get() as $reply)
+                                                        @php $replier=\App\Http\Controllers\UserController::get_by_id($reply->user_id); @endphp
+                                                        <div class="comments-list-item">
+                                                            <div class="comment-item">
+                                                                <div class="comment-item-userpic">
+                                                                    <img src="{{$replier->avatar}}" style="margin-top:0;" alt="" class="image-cover">
+                                                                </div>
+                                                                <div class="comment-item-name">{{$replier->name." ".$replier->surname}}</div>
+                                                                <div class="comment-item-date">{{\App\Http\Controllers\ContentController::encode_date($reply->created_at)}} Tarihinde yanıtladı</div>
+                                                                <div class="comment-item-text">
+                                                                   {{$reply->description}}
+                                                                </div>
+                                                                <div class="reply-link">Reply</div>
+                                                            </div>
+                                                        </div>
+                                                        @endforeach
+                                                    <p style="text-align:center;margin-top:5%;">
+                                                    <div class="st_top_btn">
+                                                        <a class="login-link getModal" data-href="#reply-support-ticket_modal" data-id="{{$item->id}}" >
+                                                            Yanıtla
+                                                        </a>
+                                                    </div>
+                                                        <span style="font-size: 0.8rem;">
+                                                            @if($item->is_locked)
+                                                                Kilitlendi
+                                                            @else
+                                                                Açık
+                                                                @endif
+
+                                                        </span>
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+                                </div>
+                                <div class="tab-item" data-tab_name="downloads">
+                                    @if(!count(\App\Models\Download::where('user_id',\Illuminate\Support\Facades\Auth::id())->get()))
+                                        <h6 class="page-title" style="text-align: center;">İçerik Bulunamadı</h6>
+                                    @endif
+                                    <div class="author-list">
+                                        @foreach(\App\Models\Download::where('user_id',\Illuminate\Support\Facades\Auth::id())->get() as $item)
+                                            @php
+                                                $rated_item=\App\Models\Content::where('id',$item->content_id)->first();
+
+                                            @endphp
+                                            <a class="author-list-item" href="{{route('content_view',['self'=>$rated_item->title,'id'=>$item->content_id])}}">
+                                                <div class="author-image">
+                                                    <img src="{{$rated_item->preview_photo}}" alt="" class="image-cover">
+                                                </div>
+                                                <p class="author-name">
+                                                    {{$rated_item->title}}
+                                                </p>
+                                                <div class="author-posts">
+                                               {{\App\Http\Controllers\ContentController::encode_date($item->created_at)}}
 
                                                 </div>
                                             </a>

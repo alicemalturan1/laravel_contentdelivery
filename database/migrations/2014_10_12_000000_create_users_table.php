@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->text("instagram_link")->nullable();
             $table->text("facebook_link")->nullable();
             $table->text("twitter_link")->nullable();
-            $table->text("avatar")->default('assets/images/default/avatar.png');
+            $table->text("avatar")->default('/assets/images/default/avatar.png');
             $table->integer('is_admin')->default(0);
             $table->integer("user_rank")->default(0);
             $table->string('email')->unique();

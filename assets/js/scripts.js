@@ -178,31 +178,37 @@ jQuery(document).ready(function(){
     $("#change_profile-userpic").change(()=>$("#c_avatar-form").submit());
     $("#category-slider_profilepage a").click(function(e){
         e.preventDefault();
-        var index=$(this).data('slick-index');
+        var index=$(this).data('tab_name');
         $(".profile-tabs .tab-item").fadeOut(150);
-        $(".profile-tabs .tab-item").eq(index).fadeIn(100);
+        $(".profile-tabs .tab-item[data-tab_name="+index+"]").fadeIn(100);
         $("#category-slider_profilepage a").removeClass('selected');
         $(this).addClass('selected');
-
+        window.location.replace('/my/profile#'+index);
 
     });
-    if(window.location.pathname=='/my/profile'){
-        var link= window.location.href;
-        link = link.split('#');
+   function profile_tabs(){
+       if(window.location.pathname=='/my/profile'){
+           var link= window.location.href;
+           link = link.split('#');
 
-        if(Object.values(link).length>1&&link[Object.values(link).length-1]!=""){
-            var tab = link[Object.values(link).length-1];
+           if(Object.values(link).length>1&&link[Object.values(link).length-1]!=""){
+               var tab = link[Object.values(link).length-1];
 
-            $("#category-slider_profilepage a").removeClass('selected');
-            $("#category-slider_profilepage a[data-tab_name="+tab+"]").addClass('selected');
-            var btn = $("#category-slider_profilepage a[data-tab_name="+tab+"]");
+               $("#category-slider_profilepage a").removeClass('selected');
+               $("#category-slider_profilepage a[data-tab_name="+tab+"]").addClass('selected');
+               var btn = $("#category-slider_profilepage a[data-tab_name="+tab+"]");
 
 
-            $(".profile-tabs .tab-item").fadeOut(150);
-            $(".profile-tabs .tab-item[data-tab_name="+tab+"]").fadeIn(100);
-        }
+               $(".profile-tabs .tab-item").fadeOut(150);
+               $(".profile-tabs .tab-item[data-tab_name="+tab+"]").fadeIn(100);
+           }
 
-    }
+       }
+   }
+   profile_tabs();
+   $(document).on("click",'.nav-profile_pagelinks',function(e){
+       profile_tabs();
+   });
     $(".js_delete-favorite").click(function (e){
         e.preventDefault();
         axios.post('/content/fav',{"id":$(this).data('id')}).then((x)=>{
@@ -1568,9 +1574,9 @@ var rated_content=false;
         jQuery(".category-slider").slick({
                arrows: true,
             dots: false,
-            slidesToShow: 5,
+            slidesToShow: 4,
             slidesToScroll: 1,
-            infinite: false,
+            infinite: true,
             fade: false,
             focusOnSelect: false,
             swipe: false,
