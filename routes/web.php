@@ -12,32 +12,36 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/accessdemo',[\App\Http\Controllers\UserController::class,'access_demo']);
+Route::group(['middleware'=>'demoaccess'],function(){
 
-Route::get('/', function () {
-    return view('client.home');
-})->name('home');
-Route::post('/login',[\App\Http\Controllers\UserController::class,'login']);
-Route::post('/register',[\App\Http\Controllers\UserController::class,'register']);
-Route::group(['prefix'=>'content'],function(){
-    Route::get('/{self}-{id}',[\App\Http\Controllers\ContentController::class,'view'])->name('content_view');
-    Route::post('/like',[\App\Http\Controllers\ContentController::class,'like_toggle']);
-    Route::post('/disslike',[\App\Http\Controllers\ContentController::class,'disslike_toggle']);
-    Route::post('/fav',[\App\Http\Controllers\ContentController::class,'favorite'])->middleware('auth');
-    Route::post('/rate',[\App\Http\Controllers\ContentController::class,'rate']);
-    Route::post('/report',[\App\Http\Controllers\ContentController::class,'report']);
-    Route::get('/download/{id}',[\App\Http\Controllers\ContentController::class,'download']);
-});
-
-Route::group(['prefix'=>'/my','middleware'=>'auth'],function(){
-    Route::get('/profile',function(){
-        return view("client.profile");
+    Route::get('/', function () {
+        return view('client.home');
+    })->name('home');
+    Route::post('/login',[\App\Http\Controllers\UserController::class,'login']);
+    Route::post('/register',[\App\Http\Controllers\UserController::class,'register']);
+    Route::group(['prefix'=>'content'],function(){
+        Route::get('/{self}-{id}',[\App\Http\Controllers\ContentController::class,'view'])->name('content_view');
+        Route::post('/like',[\App\Http\Controllers\ContentController::class,'like_toggle']);
+        Route::post('/disslike',[\App\Http\Controllers\ContentController::class,'disslike_toggle']);
+        Route::post('/fav',[\App\Http\Controllers\ContentController::class,'favorite'])->middleware('auth');
+        Route::post('/rate',[\App\Http\Controllers\ContentController::class,'rate']);
+        Route::post('/report',[\App\Http\Controllers\ContentController::class,'report']);
+        Route::get('/download/{id}',[\App\Http\Controllers\ContentController::class,'download']);
     });
-    Route::post('/update',[\App\Http\Controllers\UserController::class,'update']);
-    Route::post('/changepassword',[\App\Http\Controllers\UserController::class,'change_password']);
-    Route::post('/update_avatar',[\App\Http\Controllers\UserController::class,'change_avatar']);
-    Route::post('/support_ticket',[\App\Http\Controllers\UserController::class,'create_support_ticket']);
+
+    Route::group(['prefix'=>'/my','middleware'=>'auth'],function(){
+        Route::get('/profile',function(){
+            return view("client.profile");
+        });
+        Route::post('/update',[\App\Http\Controllers\UserController::class,'update']);
+        Route::post('/changepassword',[\App\Http\Controllers\UserController::class,'change_password']);
+        Route::post('/update_avatar',[\App\Http\Controllers\UserController::class,'change_avatar']);
+        Route::post('/support_ticket',[\App\Http\Controllers\UserController::class,'create_support_ticket']);
+    });
+
+
+    Route::post('/auth-check',[\App\Http\Controllers\UserController::class,'auth_check']);
+    Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout']);
+
 });
-
-
-Route::post('/auth-check',[\App\Http\Controllers\UserController::class,'auth_check']);
-Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout']);

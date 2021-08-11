@@ -156,6 +156,13 @@ class UserController extends Controller
             ]);
         }
     }
+    public function access_demo(Request $req){
+        if ($req->password=="3169erisim"){
+            return response()->redirectTo('/')->withCookie(cookie('demo_access',true,315456,'/'));
+        }else{
+            return back()->withErrors(['Şifre yanlış']);
+        }
+    }
     public function create_support_ticket(Request $req){
          if ($req->reply_id){
              $now= Carbon::now();
