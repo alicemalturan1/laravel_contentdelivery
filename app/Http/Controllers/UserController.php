@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SupportTicket;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
@@ -135,6 +136,11 @@ class UserController extends Controller
                     'password'=>bcrypt($req->new_pw),
                     'updated_at'=>Carbon::now()
                 ]);
+                return response()->json([
+                    'success'=>true,
+                    'update_time'=>Carbon::now('Europe/Istanbul'),
+                    'success-token'=>bcrypt(time().Auth::id())
+                ]);
             }else{
                 return response()->json([
                     'error'=>'password_notmatch',
@@ -149,5 +155,87 @@ class UserController extends Controller
                 'message'=>'5 Dakikada bir güncelleme yapabilirsiniz.'
             ]);
         }
+    }
+    public function create_support_ticket(Request $req){
+         if ($req->reply_id){
+             $now= Carbon::now();
+             $update_time=Carbon::parse(SupportTicket::where('id',$req->reply_id)->first()->updated_at);
+             $diff=$update_time->diffInMinutes($now,false);
+             if($diff>3&&Auth::user()->is_admin!=1&&SupportTicket::where('id',$req->reply_id)->first()->is_locked!=1){
+                 SupportTicket::insert([
+                     'title'=>'answer_'.Auth::id().'-to-'.$req->reply_id,
+                     'reason'=>'answer',
+                     'reply_id'=>$req->reply_id,
+                     'user_id'=>Auth::id(),
+                     'description'=>$req->description
+                 ]);
+                 SupportTicket::where('id',$req->reply_id)->update(['updated_at'=>Carbon::now()]);
+                 return response()->json([
+                     'success'=>true,
+                     'update_time'=>Carbon::now('Europe/Istanbul'),
+                     'success-token'=>bcrypt(time().Auth::id())
+                 ]);
+             }
+             else if(SupportTicket::where('id',$req->reply_id)->first()->is_locked==1){
+                 return response()->json([
+                     'error'=>'ticket-locked',
+                     'err-code'=>'tl-1',
+                     'message'=>'Destek bileti kapatılmıştır.'
+                 ]);
+             }
+             else if(Auth::user()->is_admin){
+                if (SupportTicket::where('id',$req->reply_id)->first()->is_locked){
+                    SupportTicket::where('id',$req->reply_id)->update([
+                        'is_locked'=>0,
+                        'updated_at'=>Carbon::now(),
+                    ]);
+                }
+                 SupportTicket::insert([
+                     'title'=>'answer_'.Auth::id().'-to-'.$req->reply_id,
+                     'reason'=>'answer',
+                     'reply_id'=>$req->reply_id,
+                     'user_id'=>Auth::id(),
+
+                     'description'=>$req->description
+                 ]);
+
+                 return response()->json([
+                     'success'=>true,
+                     'update_time'=>Carbon::now('Europe/Istanbul'),
+                     'success-token'=>bcrypt(time().Auth::id())
+                 ]);
+             }
+             else{
+                 return response()->json([
+                     'error'=>'waittime_notexpired',
+                     'err-code'=>'wt_ne-0',
+                     'message'=>'3 Dakikada bir güncelleme yapabilirsiniz.'
+                 ]);
+             }
+         }else{
+             SupportTicket::insert([
+                 'title'=>$req->title,
+                 'reason'=>$req->reason,
+                 'updated_at'=>Carbon::now(),
+                 'user_id'=>Auth::id(),
+                 'description'=>$req->description
+             ]);
+             return response()->json([
+                 'success'=>true,
+                 'update_time'=>Carbon::now('Europe/Istanbul'),
+                 'success-token'=>bcrypt(time().Auth::id())
+             ]);
+         }
+    }
+    public function lock_support_ticket(Request $req){
+        SupportTicket::where('id',$req->id)->update([
+            'is_locked'=>1,
+            'updated_at'=>Carbon::now()->setTimezone('GMT+3')
+        ]);
+        return response()->json([
+            'success'=>true,
+            'update_time'=>Carbon::now('Europe/Istanbul'),
+            'success-token'=>bcrypt(time().Auth::id())
+        ]);
     }
 }

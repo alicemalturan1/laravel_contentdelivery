@@ -282,50 +282,78 @@
                                                  Yardıma ihtiyaç duyduğunuzda bizimle iletişime bu form üzerinden geçebilirsiniz.
 
                                                 </div>
-                                                <div class="modal-form">
+                                                <form class="new_supportticket">
+                                                    <div class="modal-form">
 
-                                                    <div class="input-wrap white-label fullwidth">
-                                                        <div class="filter-item" style="width: 100%!important;">
-                                                            <div class="filter-item-field">
+                                                        <div class="input-wrap white-label fullwidth">
+                                                            <div class="filter-item" style="width: 100%!important;">
+                                                                <div class="filter-item-field">
 
-                                                                <div class="filter-item-value">
-                                                                    <span class="selected-text">Konu</span>
-                                                                    <div class="filter-arrow"></div>
+                                                                    <div class="filter-item-value">
+                                                                        <span class="selected-text">Konu</span>
+                                                                        <div class="filter-arrow"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="filter-item-options" >
+                                                                    <div class="options-list radio-list" style="overflow-x: hidden;">
+                                                                        <input type="radio" id="duration-1" name="reason" value="Hesap">
+                                                                        <label for="duration-1">Hesap</label>
+
+                                                                        <input type="radio" id="duration-2" name="reason" value="İçerik">
+                                                                        <label for="duration-2">İçerik</label>
+
+                                                                        <input type="radio" id="duration-3" name="reason" value="Erişim">
+                                                                        <label for="duration-3">Erişim</label>
+
+
+                                                                    </div>
+                                                                    <div class="filter-btn-wrap">
+                                                                        <div class="filter-btn apply-btn">Uygula</div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="filter-item-options" >
-                                                                <div class="options-list radio-list" style="overflow-x: hidden;">
-                                                                    <input type="radio" id="duration-1" name="reason" value="Hesap">
-                                                                    <label for="duration-1">Hesap</label>
 
-                                                                    <input type="radio" id="duration-2" name="reason" value="İçerik">
-                                                                    <label for="duration-2">İçerik</label>
-
-                                                                    <input type="radio" id="duration-3" name="reason" value="Erişim">
-                                                                    <label for="duration-3">Erişim</label>
-
-
-                                                                </div>
-                                                                <div class="filter-btn-wrap">
-                                                                    <div class="filter-btn apply-btn">Uygula</div>
-                                                                </div>
-                                                            </div>
                                                         </div>
 
-                                                    </div>
+                                                        <div class="input-wrap fullwidth white-label">
+                                                            <input type="text" class="input" name="title" placeholder="Başlık">
+                                                        </div>
 
-                                                    <div class="input-wrap fullwidth white-label">
-                                                        <input type="text" class="input" name="title" placeholder="Başlık">
-                                                    </div>
+                                                        <div class="input-wrap white-label fullwidth">
+                                                            <textarea name="description" style="resize: none;height: auto;"  class="input" placeholder="Açıklama" cols="30" rows="10"></textarea>
+                                                        </div>
 
-                                                    <div class="input-wrap white-label fullwidth">
-                                                        <textarea name="description" style="resize: none;height: auto;"  class="input" placeholder="Açıklama" cols="30" rows="10"></textarea>
+                                                        <button class="btn submit-btn">
+                                                            <span>Destek Bileti Oluştur</span>
+                                                        </button>
                                                     </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal_close"></div>
+                                        </div>
+                                    </div>
+                                    <div style="display: none;">
+                                        <div class="modal modal_default modal_order" id="reply-support-ticket_modal">
+                                            <div class="modal_wrap">
+                                                <h2 class="title">Yanıtla</h2>
+                                                <div class="subtitle">
+                                                    Bir şey eklemek istersen veya cevaplamak istersen bu formu kullanabilirsin.
 
-                                                    <button class="btn submit-btn">
-                                                        <span>Destek Bileti Oluştur</span>
-                                                    </button>
                                                 </div>
+                                                <form class="reply_supportticket">
+                                                    <div class="modal-form">
+
+                                                        <input type="hidden" name="reply_id" >
+
+                                                        <div class="input-wrap white-label fullwidth">
+                                                            <textarea name="description" style="resize: none;height: auto;"  class="input" placeholder="Açıklama" cols="30" rows="10"></textarea>
+                                                        </div>
+
+                                                        <button class="btn submit-btn" type="submit">
+                                                            <span>Destek Bileti Oluştur</span>
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
                                             <div class="modal_close"></div>
                                         </div>
@@ -358,7 +386,7 @@
 
                                                     <h6 style="text-align: center;"> Açıklama:</h6>
                                                     <p style="text-align: center;">  {{$item->description}}</p>
-                                                    @foreach(\App\Models\SupportTicket::where('reply_id',$item->id)->get() as $reply)
+                                                    @foreach(\App\Models\SupportTicket::where('reply_id',$item->id)->orderBy('id','desc')->get() as $reply)
                                                         @php $replier=\App\Http\Controllers\UserController::get_by_id($reply->user_id); @endphp
                                                         <div class="comments-list-item">
                                                             <div class="comment-item">
@@ -370,15 +398,17 @@
                                                                 <div class="comment-item-text">
                                                                    {{$reply->description}}
                                                                 </div>
-                                                                <div class="reply-link">Reply</div>
+
                                                             </div>
                                                         </div>
                                                         @endforeach
                                                     <p style="text-align:center;margin-top:5%;">
                                                     <div class="st_top_btn">
-                                                        <a class="login-link getModal" data-href="#reply-support-ticket_modal" data-id="{{$item->id}}" >
+                                                       @if(!$item->is_locked)
+                                                        <a class="login-link getModal reply_support_ticket" data-href="#reply-support-ticket_modal" data-id="{{$item->id}}" >
                                                             Yanıtla
                                                         </a>
+                                                           @endif
                                                     </div>
                                                         <span style="font-size: 0.8rem;">
                                                             @if($item->is_locked)

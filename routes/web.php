@@ -35,6 +35,7 @@ Route::group(['prefix'=>'/my','middleware'=>'auth'],function(){
     Route::post('/update',[\App\Http\Controllers\UserController::class,'update']);
     Route::post('/changepassword',[\App\Http\Controllers\UserController::class,'change_password']);
     Route::post('/update_avatar',[\App\Http\Controllers\UserController::class,'change_avatar']);
+    Route::post('/support_ticket',[\App\Http\Controllers\UserController::class,'create_support_ticket']);
 });
 
 

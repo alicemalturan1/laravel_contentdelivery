@@ -225,7 +225,7 @@
                                         <div class="author-image">
                                             <img src="{{$me->avatar}}" alt="" class="image-cover">
                                         </div>
-                                        <span>Profile</span>
+                                        <span>Hesap</span>
                                     </a>
                                     <ul class="profile-ul first-level-menu" style="display: none;">
                                         <li><a  href="/my/profile">Profilimi Düzenle</a></li>

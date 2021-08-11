@@ -186,6 +186,21 @@ jQuery(document).ready(function(){
         window.location.replace('/my/profile#'+index);
 
     });
+    $(".reply_support_ticket").click(function(){$(".reply_supportticket input[name=reply_id]").val($(this).data('id'));});
+    $(".reply_supportticket").submit(function(e){
+        e.preventDefault();
+        axios.post('support_ticket',$(this).serialize()).then((d)=>{
+           if (d.data.error)show_error(d.data.message);
+           else {show_success('Yanıtınız Gönderildi.');setTimeout(()=>{window.location.reload();},1200);}
+        }).catch(()=>show_error('Bir hata oluştu'));
+    });
+    $(".new_supportticket").submit(function(e){
+        e.preventDefault();
+        axios.post('support_ticket',$(this).serialize()).then((d)=>{
+            if (d.data.error)show_error(d.data.message);
+            else {show_success('Destek biletiniz Gönderildi.');setTimeout(()=>{window.location.reload();},1200);}
+        });
+    });
    function profile_tabs(){
        if(window.location.pathname=='/my/profile'){
            var link= window.location.href;
