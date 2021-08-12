@@ -18,17 +18,7 @@
 </head>
 
 <body class="transition-none no-padding">
-<div class="search-section">
-    <div class="wrap">
-        <div class="wrap_float">
-            <div class="search-form">
-                <input type="text" class="search-input" placeholder="Search…">
-                <button class="search-submit"></button>
-            </div>
-            <div class="search-close" id="search-close"></div>
-        </div>
-    </div>
-</div>
+@include('section.search_block')
 <div class="container page">
     <div class="container-wrap">
         @include('section.header')
@@ -39,7 +29,7 @@
             <div class="wrap wrap-center">
                 <div class="wrap_float">
                     <div class="breadcrumbs white-color">
-                        <a href="index.html">Home</a> / <a href="#">Travel</a> / <span class="current">Tour Page Single</span>
+                        <a href="/">Anasayfa</a> / <a href="#">İçerik</a> / <span class="current">{{$content->title}}</span>
                     </div>
                 </div>
             </div>

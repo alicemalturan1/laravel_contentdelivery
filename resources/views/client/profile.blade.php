@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <title>Profilim</title>
@@ -18,17 +18,7 @@
 </head>
 
 <body class="transition-none">
-<div class="search-section">
-    <div class="wrap">
-        <div class="wrap_float">
-            <div class="search-form">
-                <input type="text" class="search-input" placeholder="Search…">
-                <button class="search-submit"></button>
-            </div>
-            <div class="search-close" id="search-close"></div>
-        </div>
-    </div>
-</div>
+@include('section.search_block')
 <div class="container page">
     <div class="container-wrap">
       @include('section.header')
@@ -386,6 +376,11 @@
 
                                                     <h6 style="text-align: center;"> Açıklama:</h6>
                                                     <p style="text-align: center;">  {{$item->description}}</p>
+                                                    <style>
+                                                        .dark .comments-list-item{
+                                                            border:1px solid #3C3C3C;
+                                                        }
+                                                    </style>
                                                     @foreach(\App\Models\SupportTicket::where('reply_id',$item->id)->orderBy('id','desc')->get() as $reply)
                                                         @php $replier=\App\Http\Controllers\UserController::get_by_id($reply->user_id); @endphp
                                                         <div class="comments-list-item">

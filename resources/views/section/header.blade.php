@@ -16,7 +16,7 @@
 </div>
 
 <div class="container-wrap--dummy"></div>
-<div class="top-panel" id="js-panel">
+<div class="top-panel  fixed-scroll-up" id="js-panel">
     <div class="wrap">
         <div class="wrap_float">
             <div class="mode-check">

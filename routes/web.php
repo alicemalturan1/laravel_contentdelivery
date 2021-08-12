@@ -18,6 +18,8 @@ Route::group(['middleware'=>'demoaccess'],function(){
     Route::get('/', function () {
         return view('client.home');
     })->name('home');
+    Route::get('/search/{key}',[\App\Http\Controllers\ContentController::class,'search_view']);
+    Route::post('/search/continue',[\App\Http\Controllers\ContentController::class,'continue_search']);
     Route::post('/login',[\App\Http\Controllers\UserController::class,'login']);
     Route::post('/register',[\App\Http\Controllers\UserController::class,'register']);
     Route::group(['prefix'=>'content'],function(){

@@ -18,17 +18,7 @@
 </head>
 
 <body class="transition-none">
-<div class="search-section">
-    <div class="wrap">
-        <div class="wrap_float">
-            <div class="search-form">
-                <input type="text" class="search-input" placeholder="Search…">
-                <button class="search-submit"></button>
-            </div>
-            <div class="search-close" id="search-close"></div>
-        </div>
-    </div>
-</div>
+@include('section.search_block')
 
 <div class="container page">
     <div class="container-wrap">
@@ -103,7 +93,7 @@
             <div class="slide">
                 <div class="slide__wrap">
                     <div class="slide__img">
-                        <div class="video-bg js-video-bg image-cover" data-video="video/video-3.mp4"></div>
+                        <div class="video-bg js-video-bg image-cover" data-video="/assets/video/slider_video.mp4"></div>
                     </div>
                     <div class="wrap">
                         <div class="wrap_float js-fix-height">

@@ -7,12 +7,15 @@ use App\Models\Favorite;
 use App\Models\Rate;
 use App\Models\Report;
 use Carbon\Carbon;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Response;
+
+use Genert\BBCode\BBCode;
 
 class ContentController extends Controller
 {
@@ -40,7 +43,7 @@ class ContentController extends Controller
         }
 
 
-        Content::where('id',$req->id);
+
 
     }
     public function disslike_toggle(Request $req){
@@ -64,6 +67,43 @@ class ContentController extends Controller
 
 
 
+    }
+    public static function bbcode_parser(){
+        $bbcode=new BBCode();
+        $bbcode->addParser(
+            'custom-link',
+            '/\[link target\=(.*?)\](.*?)\[\/link\]/s',
+            '<a href="$1">$2</a>',
+            '$1'
+        );
+    }
+    public static function encodelink($key){
+        $tr = array('ş','Ş','ı','I','İ','ğ','Ğ','ü','Ü','ö','Ö','Ç','ç','(',')','/',' ',',','?');
+        $eng = array('s','s','i','i','i','g','g','u','u','o','o','c','c','','','_','_','','');
+        $s = str_replace($tr,$eng,$key);
+        $s = strtolower($s);
+        $s = preg_replace('/&amp;amp;amp;amp;amp;amp;amp;amp;amp;.+?;/', '', $s);
+        $s = preg_replace('/\s+/', '-', $s);
+        $s = preg_replace('|-+|', '-', $s);
+        $s = preg_replace('/#/', '', $s);
+        $s = str_replace('.', '', $s);
+        $s = trim($s, '-');
+
+        return $s;
+    }
+    public function search_view($key){
+        $result=Content::where('title','like','%'.$key.'%')->orWhere('description','like','%'.$key.'%')->paginate(9);
+
+
+        return view('client.search',['key'=>$key,'results'=>$result]);
+    }
+    public function continue_search(Request $req){
+        $currentPage=2;
+        Paginator::currentPageResolver(function () use ($currentPage) {
+            return $currentPage;
+        });
+        $result=Content::where('title','like','%'.$req->key.'%')->orWhere('description','like','%'.$req->key.'%')->paginate(9);
+        return \response()->json([$result]);
     }
     public function favorite(Request $req){
         if ($fav=Favorite::where('content_id',$req->id)->where('user_id',Auth::id())->first()){

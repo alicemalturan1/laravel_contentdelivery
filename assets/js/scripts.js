@@ -1,7 +1,22 @@
 jQuery(document).ready(function(){
 
     'use strict';
-
+    function search(){
+        window.location.replace('/search/'+$("input[name=search-input]").val());
+    }
+    $(document).on("click",'.search-submit',function(){
+        console.log("clicked");
+        search();
+    });
+    $(document).on('keyup','input[name=search-input]',function(e){
+        if (e.keyCode==13){
+            console.log("entered");
+            search();
+        }
+    });
+    $(".search_showmore").click(function(){
+        axios.post('continue',{"key":$(this).data('key')});
+    });
    function show_error(message){
        $("#error-message .error-text").text(message);
        $("#error-message").addClass('visible');
@@ -1322,7 +1337,7 @@ var rated_content=false;
             variableWidth: true,
             centerMode: false,
             speed: 1000,
-            autoplaySpeed: 3000
+            autoplaySpeed: 7500
         });
 
         jQuery('#js-slider-section').on('beforeChange', function(event,

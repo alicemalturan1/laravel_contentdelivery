@@ -40,7 +40,7 @@
                     <form action="/accessdemo" method="post">
                         @csrf
                         @if($errors->any())
-                            <h5 style="text-align: center;color:#f8685d;">{{$errors->first()}}</h5>
+                            <h5  style="text-align: center;color:#f5483c;">{{$errors->first()}}</h5>
                             @endif
                         <div class="profile-settings-data">
 
