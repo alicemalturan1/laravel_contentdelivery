@@ -99,7 +99,7 @@
             <div class="wrap">
                 <div class="wrap_float">
                     <div class="footer-content">
-                        <div class="logo">uipaper</div>
+                        <div class="logo">script</div>
                         <div class="wrap-center">
                             <div class="socials">
                                 <a class="soc-link">
