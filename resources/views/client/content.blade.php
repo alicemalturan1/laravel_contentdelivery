@@ -98,39 +98,44 @@
                                 {!!  $content->description !!}
 
                                 <div class="rating-results">
+                                    @php
+                                        $rate_values=\App\Http\Controllers\ContentController::calc_ratescore($content->id);
+                                    @endphp
                                     <div class="rating-results-list">
                                         <div class="rating-results-item">
                                             <div class="rating-results-item-info">
                                                 <div class="_title">İndirme Hızı</div>
-                                                <div class="_value">50%</div>
+                                                <div class="_value">{{$rate_values["total_ds"]*10}}%</div>
                                             </div>
                                             <div class="rating-results-item-progress">
-                                                <div class="line" style="width: 50%"></div>
+                                                <div class="line" style="width: {{$rate_values["total_ds"]*10}}%"></div>
                                             </div>
                                         </div>
                                         <div class="rating-results-item">
                                             <div class="rating-results-item-info">
                                                 <div class="_title">Link Güvenliği</div>
-                                                <div class="_value">90%</div>
+                                                <div class="_value">{{$rate_values["total_ls"]*10}}%</div>
                                             </div>
                                             <div class="rating-results-item-progress">
-                                                <div class="line" style="width: 90%"></div>
+                                                <div class="line" style="width: {{$rate_values["total_ls"]*10}}%"></div>
                                             </div>
                                         </div>
                                         <div class="rating-results-item">
                                             <div class="rating-results-item-info">
                                                 <div class="_title">Link Erişimi</div>
-                                                <div class="_value">70%</div>
+                                                <div class="_value">{{$rate_values["total_ab"]*10}}%</div>
                                             </div>
                                             <div class="rating-results-item-progress">
-                                                <div class="line" style="width: 70%"></div>
+                                                <div class="line" style="width: {{$rate_values["total_ab"]*10}}%"></div>
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="rating-results-total">
-                                        <div class="total-value">4.8</div>
+
+                                        <div class="total-value">    {{$rate_values["total"]}} </div>
                                         <div class="subtitle">
+
                                             Ortalama
                                         </div>
                                     </div>
@@ -317,69 +322,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="sidebar-item widget_instagram">
-                        <div class="sidebar-item-title">Instagram Sidebar</div>
-                        <div class="inst-block">
-                            <div class="inst-block-head">
-                                <div class="inst-block-head-userpic">
 
-                                </div>
-                                <div class="inst-block-head-username">helloDigi</div>
-                                <div class="inst-block-head-followers">24 Followers</div>
-                            </div>
-                            <div class="inst-block-posts">
-                                <a class="inst-block-posts-item">
-                                    <img src="/assets/img/gallery-1.jpg" alt="">
-                                </a>
-                                <a class="inst-block-posts-item">
-                                    <img src="/assets/img/post-preview.jpg" alt="">
-                                </a>
-                                <a class="inst-block-posts-item">
-                                    <img src="/assets/img/gallery-1.jpg" alt="">
-                                </a>
-                                <a class="inst-block-posts-item">
-                                    <img src="/assets/img/post-preview.jpg" alt="">
-                                </a>
-                                <a class="inst-block-posts-item">
-                                    <img src="/assets/img/gallery-1.jpg" alt="">
-                                </a>
-                            </div>
-                            <a class="btn inst-block-btn">
-                                <span>Follow</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sidebar-item widget_twitter">
-                        <div class="sidebar-item-title">Recent Tweets</div>
-                        <div class="twitter-block">
-                            <div class="twitter-block-posts">
-                                <div class="twitter-block-posts-item">
-                                    <p class="twitter-content">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque nobis quisquam, vitae officiis! Cupiditate quaerat aliquam perferendis perspiciatis consectetur reiciendis earum, harum tempore, adipisci itaque hic rerum, similique ea amet... <a href="#">https://twitter.com/</a>
-                                    </p>
-                                    <div class="twitter-time">
-                                        244 days ago
-                                    </div>
-                                </div>
-                                <div class="twitter-block-posts-item">
-                                    <p class="twitter-content">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam aut distinctio tempora, beatae quo autem, veniam quia, dolorum excepturi voluptates tenetur! <a href="#">https://twitter.com/</a>
-                                    </p>
-                                    <div class="twitter-time">
-                                        244 days ago
-                                    </div>
-                                </div>
-                                <div class="twitter-block-posts-item">
-                                    <p class="twitter-content">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint porro dolores, hic inventore, debitis eum quae, libero maiores non adipisci a. Nihil, dignissimos. <a href="#">https://twitter.com/</a>
-                                    </p>
-                                    <div class="twitter-time">
-                                        244 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -388,7 +331,7 @@
             <div class="wrap">
                 <div class="wrap_float">
                     <div class="section-head">
-                        <h2 class="title">You may like it</h2>
+                        <h2 class="title">Benzer içerikler</h2>
                         <div class="arrows">
                             <div class="arrow prev"></div>
                             <div class="arrow next"></div>
@@ -396,252 +339,38 @@
                     </div>
                     <div class="section-content">
                         <div class="packages-slider fullwidth">
-                            <a href="tour-page-sidebar-right.html" class="packages-item">
-                                <div class="shadow js-shadow"></div>
-                                <div class="bg-img" style="background-image: url(/assets/img/tour-1.jpg)"></div>
-                                <div class="packages-item-head">
-                                    <div class="packages-cost"><span class="days">5 days</span> from <span class="cost-val">$2,212</span> / pp</div>
-                                    <div class="favorites-tag added js-add-to-fav">
-                                        <i class="is-added bouncy"></i>
-                                        <i class="not-added bouncy"></i>
-                                        <span class="fav-overlay"></span>
+                            @foreach(\App\Http\Controllers\ContentController::related($content->id) as $item)
+                                <a href="{{route('content_view',['self'=>\App\Http\Controllers\ContentController::encodelink($item->title),'id'=>$item->id])}}" class="post-item @if(!$item->photo_requirement) without-bg @endif ">
+                                    @if($item->photo_requirement)
+                                        <img src="{{$item->preview_photo}}" alt="" class="post-bg-img">
+                                    @endif
+
+                                    <h3 class="post-title">
+                                        {{$item->title}}
+                                    </h3>
+                                    <div class="post-info">
+                                        <div class="post-author post-info-author">
+                                            <span>{{$item->download_count}}</span>
+                                            <span>indirme</span>
+                                        </div>
+                                        <div class="post-date post-info-date">
+                                            {{\App\Http\Controllers\ContentController::encode_date($item->created_at)}}
+                                        </div>
+                                        <div class="post-views post-rate-count post-info-views">
+              <span>
+                    {{count(\App\Models\Rate::where('content_id',$item->id)->get())}} yorum
+              </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="packages-item-foot">
-                                    <h3 class="packages-title">Magic Forests of Sweden</h3>
-                                    <div class="location">United States, San Francisco</div>
-                                </div>
-                            </a>
-                            <a href="tour-page-sidebar-right.html" class="packages-item">
-                                <div class="shadow js-shadow"></div>
-                                <div class="bg-img" style="background-image: url(/assets/img/tour-7.jpg)"></div>
-                                <div class="packages-item-head">
-                                    <div class="packages-cost"><span class="days">5 days</span> from <span class="cost-val">$2,212</span> / pp</div>
-                                    <div class="favorites-tag js-add-to-fav">
-                                        <i class="is-added bouncy"></i>
-                                        <i class="not-added bouncy"></i>
-                                        <span class="fav-overlay"></span>
-                                    </div>
-                                </div>
-                                <div class="packages-item-foot">
-                                    <h3 class="packages-title">Magic Forests of Sweden</h3>
-                                    <div class="location">United States, San Francisco</div>
-                                </div>
-                            </a>
-                            <a href="tour-page-sidebar-right.html" class="packages-item">
-                                <div class="shadow js-shadow"></div>
-                                <div class="bg-img" style="background-image: url(/assets/img/tour-3.jpg)"></div>
-                                <div class="packages-item-head">
-                                    <div class="packages-cost"><span class="days">5 days</span> from <span class="cost-val">$2,212</span> / pp</div>
-                                    <div class="favorites-tag js-add-to-fav">
-                                        <i class="is-added bouncy"></i>
-                                        <i class="not-added bouncy"></i>
-                                        <span class="fav-overlay"></span>
-                                    </div>
-                                </div>
-                                <div class="packages-item-foot">
-                                    <h3 class="packages-title">Magic Forests of Sweden</h3>
-                                    <div class="location">United States, San Francisco</div>
-                                </div>
-                            </a>
-                            <a href="tour-page-sidebar-right.html" class="packages-item">
-                                <div class="shadow js-shadow"></div>
-                                <div class="bg-img" style="background-image: url(/assets/img/tour-2.jpg)"></div>
-                                <div class="packages-item-head">
-                                    <div class="packages-cost"><span class="days">5 days</span> from <span class="cost-val">$2,212</span> / pp</div>
-                                    <div class="favorites-tag js-add-to-fav">
-                                        <i class="is-added bouncy"></i>
-                                        <i class="not-added bouncy"></i>
-                                        <span class="fav-overlay"></span>
-                                    </div>
-                                </div>
-                                <div class="packages-item-foot">
-                                    <h3 class="packages-title">Magic Forests of Sweden</h3>
-                                    <div class="location">United States, San Francisco</div>
-                                </div>
-                            </a>
+                                </a>
+                           @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="see-also-section section">
-            <div class="wrap">
-                <div class="wrap_float">
-                    <h2 class="title">
-                        Related Posts
-                    </h2>
-                    <div class="section-content">
-                        <div class="see-also-items">
-                            <a href="tour-page-sidebar-right.html" class="packages-item">
-                                <div class="shadow js-shadow"></div>
-                                <div class="bg-img" style="background-image: url(/assets/img/tour-1.jpg)"></div>
-                                <div class="packages-item-head">
-                                    <div class="packages-cost"><span class="days">5 days</span> from <span class="cost-val">$2,212</span> / pp</div>
-                                    <div class="favorites-tag added js-add-to-fav">
-                                        <i class="is-added bouncy"></i>
-                                        <i class="not-added bouncy"></i>
-                                        <span class="fav-overlay"></span>
-                                    </div>
-                                </div>
-                                <div class="packages-item-foot">
-                                    <h3 class="packages-title">Magic Forests of Sweden</h3>
-                                    <div class="location">United States, San Francisco</div>
-                                </div>
-                            </a>
-                            <a href="tour-page-sidebar-right.html" class="packages-item">
-                                <div class="shadow js-shadow"></div>
-                                <div class="bg-img" style="background-image: url(/assets/img/tour-7.jpg)"></div>
-                                <div class="packages-item-head">
-                                    <div class="packages-cost"><span class="days">5 days</span> from <span class="cost-val">$2,212</span> / pp</div>
-                                    <div class="favorites-tag js-add-to-fav">
-                                        <i class="is-added bouncy"></i>
-                                        <i class="not-added bouncy"></i>
-                                        <span class="fav-overlay"></span>
-                                    </div>
-                                </div>
-                                <div class="packages-item-foot">
-                                    <h3 class="packages-title">Magic Forests of Sweden</h3>
-                                    <div class="location">United States, San Francisco</div>
-                                </div>
-                            </a>
-                            <a href="tour-page-sidebar-right.html" class="packages-item">
-                                <div class="shadow js-shadow"></div>
-                                <div class="bg-img" style="background-image: url(/assets/img/tour-3.jpg)"></div>
-                                <div class="packages-item-head">
-                                    <div class="packages-cost"><span class="days">5 days</span> from <span class="cost-val">$2,212</span> / pp</div>
-                                    <div class="favorites-tag js-add-to-fav">
-                                        <i class="is-added bouncy"></i>
-                                        <i class="not-added bouncy"></i>
-                                        <span class="fav-overlay"></span>
-                                    </div>
-                                </div>
-                                <div class="packages-item-foot">
-                                    <h3 class="packages-title">Magic Forests of Sweden</h3>
-                                    <div class="location">United States, San Francisco</div>
-                                </div>
-                            </a>
-                            <a href="tour-page-sidebar-right.html" class="packages-item">
-                                <div class="shadow js-shadow"></div>
-                                <div class="bg-img" style="background-image: url(/assets/img/tour-2.jpg)"></div>
-                                <div class="packages-item-head">
-                                    <div class="packages-cost"><span class="days">5 days</span> from <span class="cost-val">$2,212</span> / pp</div>
-                                    <div class="favorites-tag js-add-to-fav">
-                                        <i class="is-added bouncy"></i>
-                                        <i class="not-added bouncy"></i>
-                                        <span class="fav-overlay"></span>
-                                    </div>
-                                </div>
-                                <div class="packages-item-foot">
-                                    <h3 class="packages-title">Magic Forests of Sweden</h3>
-                                    <div class="location">United States, San Francisco</div>
-                                </div>
-                            </a>
-                            <a href="tour-page-sidebar-right.html" class="packages-item">
-                                <div class="shadow js-shadow"></div>
-                                <div class="bg-img" style="background-image: url(/assets/img/tour-7.jpg)"></div>
-                                <div class="packages-item-head">
-                                    <div class="packages-cost"><span class="days">5 days</span> from <span class="cost-val">$2,212</span> / pp</div>
-                                    <div class="favorites-tag js-add-to-fav">
-                                        <i class="is-added bouncy"></i>
-                                        <i class="not-added bouncy"></i>
-                                        <span class="fav-overlay"></span>
-                                    </div>
-                                </div>
-                                <div class="packages-item-foot">
-                                    <h3 class="packages-title">Magic Forests of Sweden</h3>
-                                    <div class="location">United States, San Francisco</div>
-                                </div>
-                            </a>
-                            <a href="tour-page-sidebar-right.html" class="packages-item">
-                                <div class="shadow js-shadow"></div>
-                                <div class="bg-img" style="background-image: url(/assets/img/tour-3.jpg)"></div>
-                                <div class="packages-item-head">
-                                    <div class="packages-cost"><span class="days">5 days</span> from <span class="cost-val">$2,212</span> / pp</div>
-                                    <div class="favorites-tag js-add-to-fav">
-                                        <i class="is-added bouncy"></i>
-                                        <i class="not-added bouncy"></i>
-                                        <span class="fav-overlay"></span>
-                                    </div>
-                                </div>
-                                <div class="packages-item-foot">
-                                    <h3 class="packages-title">Magic Forests of Sweden</h3>
-                                    <div class="location">United States, San Francisco</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <div class="instagram-section section">
-            <div class="wrap">
-                <div class="wrap_float instagram-posts-list standart" id="instagram-posts">
-                    <a href="#" class="instagram-post-item">
-                        <img src="/assets/img/inst-1.jpg" alt="">
-                    </a>
-                    <a href="#" class="instagram-post-item">
-                        <img src="/assets/img/inst-2.jpg" alt="">
-                    </a>
-                    <a href="#" class="instagram-post-item">
-                        <img src="/assets/img/inst-3.jpg" alt="">
-                    </a>
-                    <a href="#" class="instagram-post-item">
-                        <img src="/assets/img/inst-4.jpg" alt="">
-                    </a>
-                    <a href="#" class="instagram-post-item">
-                        <img src="/assets/img/inst-5.jpg" alt="">
-                    </a>
-                    <a href="#" class="instagram-post-item">
-                        <img src="/assets/img/inst-6.jpg" alt="">
-                    </a>
-                    <a href="#" class="instagram-post-item">
-                        <img src="/assets/img/inst-7.jpg" alt="">
-                    </a>
-                    <a href="#" class="instagram-post-item">
-                        <img src="/assets/img/inst-8.jpg" alt="">
-                    </a>
-                    <a href="#" class="instagram-post-item">
-                        <img src="/assets/img/inst-9.jpg" alt="">
-                    </a>
-                    <a href="#" class="instagram-post-item">
-                        <img src="/assets/img/inst-10.jpg" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            <div class="wrap">
-                <div class="wrap_float">
-                    <div class="footer-content">
-                        <div class="logo">uipaper</div>
-                        <div class="wrap-center">
-                            <div class="socials">
-                                <a class="soc-link">
-                                    <img src="/assets/img/facebook-icon.svg" class="img-svg" alt="">
-                                </a>
-                                <a class="soc-link">
-                                    <img src="/assets/img/twitter-soc-icon.svg" class="img-svg" alt="">
-                                </a>
-                                <a class="soc-link">
-                                    <img src="/assets/img/behance-icon.svg" class="img-svg" alt="">
-                                </a>
-                            </div>
-                            <div class="menu">
-                                <ul>
-                                    <li><a href="contact-form.html">Contact Form</a></li>
-                                    <li><a href="archive-grid.html">Archives</a></li>
-                                    <li><a href="https://hellodigi.ru/support/uipaper/" target="_blank">Documentation</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="footer-right">
-                            <a href="#" class="login-link">Your button</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+      @include('section.footer')
         <div class="overlay" id="overlay"></div>
     </div>
 </div>

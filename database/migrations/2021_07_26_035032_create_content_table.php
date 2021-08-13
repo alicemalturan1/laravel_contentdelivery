@@ -21,7 +21,7 @@ class CreateContentTable extends Migration
             $table->text("big_photo")->nullable();
             $table->integer("photo_requirement")->default(1);
             $table->integer("is_active")->default(1);
-            $table->bigInteger('downlaod_count');
+            $table->bigInteger('download_count');
             $table->text("size")->default("Bilinmiyor");
             $table->longText("description")->nullable();
             $table->bigInteger("like_count")->default(0);

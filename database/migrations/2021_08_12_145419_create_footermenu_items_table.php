@@ -15,6 +15,9 @@ class CreateFootermenuItemsTable extends Migration
     {
         Schema::create('footermenu_items', function (Blueprint $table) {
             $table->id();
+            $table->text("text");
+            $table->text("link");
+            $table->integer("queqe")->nullable();
             $table->timestamps();
         });
     }

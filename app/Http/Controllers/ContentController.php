@@ -98,12 +98,51 @@ class ContentController extends Controller
         return view('client.search',['key'=>$key,'results'=>$result]);
     }
     public function continue_search(Request $req){
-        $currentPage=2;
+        $currentPage=$req->page;
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
         $result=Content::where('title','like','%'.$req->key.'%')->orWhere('description','like','%'.$req->key.'%')->paginate(9);
-        return \response()->json([$result]);
+        if (!count($result))return \response()->json([
+            'error'=>'items not found',
+            'error_code'=>'itnf-0',
+
+        ]);
+        return \response()->view('section.continue_search',['list'=>$result]);
+    }
+    public static function calc_ratescore($id){
+        $total=0;
+        $total_ds=0;$total_ls=0;$total_ab=0;
+        $rates=Rate::where('content_id',$id)->get();
+        foreach ( $rates as $item){
+            $score=($item->rate_ds+$item->rate_ls+$item->rate_ab)/3;
+            $total_ds+=$item->rate_ds;
+            $total_ls+=$item->rate_ls;
+            $total_ab+=$item->rate_ab;
+            $total+=$score;
+        }
+
+       if (count($rates)){
+           $total = $total/count($rates);
+           $total_ds=$total_ds/count($rates);
+           $total_ls=$total_ls/count($rates);
+           $total_ab=$total_ab/count($rates);
+       }
+        return
+            [
+                'total'=>number_format($total,1,'.',','),
+                'total_ds'=>number_format($total_ds,1,'.',','),
+                'total_ls'=>number_format($total_ls,1,'.',','),
+                'total_ab'=>number_format($total_ab,1,'.',','),
+
+            ];
+    }
+    public static function related($id){
+        $current=Content::where('id',$id)->first();
+        return Content::where('title','like','%'.$current->title.'%')
+            ->orWhere('description','like','%'.$current->description.'%')
+            ->orWhere('title','like','%'.$current->description.'%')
+            ->orWhere('description','like','%'.$current->title.'%')->get();
     }
     public function favorite(Request $req){
         if ($fav=Favorite::where('content_id',$req->id)->where('user_id',Auth::id())->first()){

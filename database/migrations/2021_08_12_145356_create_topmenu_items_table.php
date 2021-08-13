@@ -15,6 +15,10 @@ class CreateTopmenuItemsTable extends Migration
     {
         Schema::create('topmenu_items', function (Blueprint $table) {
             $table->id();
+            $table->text("text");
+            $table->text("link");
+            $table->integer("queqe")->nullable();
+            $table->text("parent_id")->nullable();
             $table->timestamps();
         });
     }

@@ -46,49 +46,49 @@
             <div class="archive-body">
                 <div class="wrap">
                     <div class="page-wrap-content">
-                        <div class="post-items-list posts-three-columns">
+                        <div class="post-items-list posts-three-columns list_searchresults">
                             @foreach($results as $item)
-
                                 <a href="{{route('content_view',['self'=>\App\Http\Controllers\ContentController::encodelink($item->title),'id'=>$item->id])}}" class="post-item @if(!$item->photo_requirement) without-bg @endif ">
                                     @if($item->photo_requirement)
-                                    <img src="/assets/img/post-2-img.jpg" alt="" class="post-bg-img">
+                                        <img src="{{$item->preview_photo}}" alt="" class="post-bg-img">
                                     @endif
-                                    <div class="post-tags">
-                                        <div class="tag">Mobile</div>
-                                        <div class="tag">APP</div>
-                                    </div>
+
                                     <h3 class="post-title">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium tempore fugit asperiores, voluptates expedita. Officia, libero!
+                                        {{$item->title}}
                                     </h3>
                                     <div class="post-info">
                                         <div class="post-author post-info-author">
-                                            <div class="author-image">
-                                                <img src="/assets/img/author.jpg" alt="" class="image-cover">
-                                            </div>
-                                            <span>Maya Delia</span>
+                                            <span>{{$item->download_count}}</span>
+                                            <span>indirme</span>
                                         </div>
                                         <div class="post-date post-info-date">
-                                            18 May 2021
+                                            {{\App\Http\Controllers\ContentController::encode_date($item->created_at)}}
                                         </div>
-                                        <div class="post-views post-info-views">
-                                            3457
+                                        <div class="post-views post-rate-count post-info-views">
+              <span>
+                    {{count(\App\Models\Rate::where('content_id',$item->id)->get())}} yorum
+              </span>
                                         </div>
                                     </div>
                                 </a>
                             @endforeach
-
+                            @if(!count($results))
+                                <h2 class="page-title" style="text-align: center;">Sonuç bulunamadı :(</h2>
+                                @endif
 
                         </div>
-                        <div class="show-more search_showmore" data-key="{{$key}}">
-                            <div class="show-more-btn ">
-                                <span>Show more</span>
+                        @if(count($results))
+                            <div class="show-more search_showmore" data-key="{{$key}}">
+                                <div class="show-more-btn ">
+                                    <span>Daha fazla</span>
+                                </div>
+                                <div class="loader">
+                                    <svg class="circular" viewBox="25 25 50 50">
+                                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+                                    </svg>
+                                </div>
                             </div>
-                            <div class="loader">
-                                <svg class="circular" viewBox="25 25 50 50">
-                                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
-                                </svg>
-                            </div>
-                        </div>
+                            @endif
                     </div>
                 </div>
 

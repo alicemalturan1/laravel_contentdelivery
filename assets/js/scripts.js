@@ -14,8 +14,18 @@ jQuery(document).ready(function(){
             search();
         }
     });
+    var nextpage=2;
     $(".search_showmore").click(function(){
-        axios.post('continue',{"key":$(this).data('key')});
+        axios.post('continue',{"key":$(this).data('key'),'page':nextpage}).then(function(d){
+            jQuery(".show-more-btn").show();
+            jQuery(".show-more-btn").next().hide();
+            if (!d.data.error){
+                $(".list_searchresults").append(d.data);
+                nextpage++;
+            }else{
+                $(".search_showmore").remove();
+            }
+        }).catch(()=>show_error('Bir hata oluştu'));
     });
    function show_error(message){
        $("#error-message .error-text").text(message);
@@ -1738,10 +1748,7 @@ var rated_content=false;
       jQuery(this).hide();
       jQuery(this).next().show();
 
-      setTimeout(function() {
-        jQuery(".show-more-btn").show();
-        jQuery(".show-more-btn").next().hide();
-      }, 4000);
+
     });
 
     jQuery(".js-form-sent-status").on('click', function() {
