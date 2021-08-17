@@ -2,6 +2,9 @@ jQuery(document).ready(function(){
 
     'use strict';
     function search(){
+        if(!$("input[name=search-input]").val().trim(" ").length){
+            return false;
+        }
         window.location.replace('/search/'+$("input[name=search-input]").val());
     }
     $(document).on("click",'.search-submit',function(){

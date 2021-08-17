@@ -163,6 +163,34 @@ class UserController extends Controller
             return back()->withErrors(['Şifre yanlış']);
         }
     }
+    public static function rank($rank){
+        $ranks=[
+        [
+
+            'badge-color'=>'danger',
+            'rank-name'=>'Üye',
+            'accessibility'=>'nothing',
+        ],
+        [
+            'badge-color'=>'success',
+            'rank-name'=>'Yönetici',
+            'accessibility'=>'all',
+        ],
+            [
+                'badge-color'=>'primary',
+                'rank-name'=>'Moderatör',
+                'accessibility'=>[
+                    'create_content',
+                    'contacts',
+                    'reports',
+                    'show_cases',
+                    'blog',
+                    'support_tickets'
+                ],
+            ]
+        ];
+        return $ranks[$rank];
+    }
     public function create_support_ticket(Request $req){
          if ($req->reply_id){
              $now= Carbon::now();

@@ -16,12 +16,13 @@
 </div>
 
 <div class="container-wrap--dummy"></div>
+<div class="container-wrap--dummy"></div>
 <div class="top-panel  @if(isset($fixed)) fixed-scroll-up @endif " id="js-panel">
     <div class="wrap">
         <div class="wrap_float">
             <div class="mode-check">
                 <input type="checkbox" id="mode-checkbox" class="mode-checkbox-input">
-                <label for="mode-checkbox" class="mode-checkbox-label" data-dark-title="Dark Mode" data-light-title="Dark/Light"></label>
+                <label for="mode-checkbox" class="mode-checkbox-label" data-dark-title="Light/Dark" data-light-title="Dark/Light"></label>
             </div>
             <div class="wrap-center">
                 <a href="/" class="logo">

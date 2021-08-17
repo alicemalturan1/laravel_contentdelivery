@@ -41,8 +41,12 @@ Route::group(['middleware'=>'demoaccess'],function(){
         Route::post('/update_avatar',[\App\Http\Controllers\UserController::class,'change_avatar']);
         Route::post('/support_ticket',[\App\Http\Controllers\UserController::class,'create_support_ticket']);
     });
-
-
+    Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
+        Route::get('/create_content',function (){
+            return view("admin.create_content");
+        });
+        Route::get('/settings')->name('settings');
+    });
     Route::post('/auth-check',[\App\Http\Controllers\UserController::class,'auth_check']);
     Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout']);
 
