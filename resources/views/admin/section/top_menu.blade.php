@@ -27,38 +27,6 @@
                     </div>
                 </div>
 
-                <div class="dropdown d-none d-sm-inline-block">
-                    <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                        <img class="" src="/admin-assets/assets/images/flags/us.jpg" alt="Header Language" height="16">
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="/admin-assets/assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span
-                                class="align-middle">Spanish</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="/admin-assets/assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span
-                                class="align-middle">German</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="/admin-assets/assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span
-                                class="align-middle">Italian</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="/admin-assets/assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span
-                                class="align-middle">Russian</span>
-                        </a>
-                    </div>
-                </div>
 
                 <div class="dropdown d-none d-lg-inline-block ms-1">
                     <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
@@ -69,7 +37,7 @@
                     <div class="form-check form-switch mb-3">
                         <input type="checkbox" class="form-check-input theme-choice" id="dark-mode-switch"
                                 />
-                        <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
+                        <label class="form-check-label" for="dark-mode-switch">Dark Mod</label>
                     </div>
 
                 </div>
@@ -182,11 +150,8 @@
                     </div>
                 </div>
 
-                <div class="dropdown d-inline-block">
-                    <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
-                        <i class="mdi mdi-settings-outline"></i>
-                    </button>
-                </div>
+
+
 
             </div>
             <div>

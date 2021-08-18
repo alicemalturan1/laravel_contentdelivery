@@ -45,6 +45,15 @@ Route::group(['middleware'=>'demoaccess'],function(){
         Route::get('/create_content',function (){
             return view("admin.create_content");
         });
+        Route::get('/list_content',function (){
+            return view('admin.list_contents');
+        });
+        Route::get('/edit_content/{id}',function($id){
+            return view('admin.edit_content',['content'=>\App\Models\Content::Where('id',$id)->first()]);
+        })->name('edit_content');
+        Route::get("/view_content_blocks",function (){
+            return view("admin.blocks_info");
+        })->name('content_blocksinfo');
         Route::get('/settings')->name('settings');
     });
     Route::post('/auth-check',[\App\Http\Controllers\UserController::class,'auth_check']);

@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>İçerik Oluştur | Panel</title>
+    <title>İçeriği Düzenle | Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -33,54 +33,51 @@
     <!-- Begin page -->
     <div id="layout-wrapper">
 
-        @include('admin.section.top_menu')
-        @include('admin.section.left_menu')
+    @include('admin.section.top_menu')
+    @include('admin.section.left_menu')
 
-        <!-- ============================================================== -->
+    <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
 
             <div class="page-content">
 
-            @include('admin.section.page_header',['title'=>'İçerik Oluştur'])
+                @include('admin.section.page_header',['title'=>'İçerik Düzenle'])
 
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                              <div class="row justify-content-between">
-                                  <div class="col-lg-4">
-                                      <h4 class="card-title mb-4">İçerik oluşturma formu</h4>
-                                  </div>
-                                  <div class="col-lg-8 d-flex justify-content-end pb-3">
-                                      <button class="m-1 btn  btn-outline-success waves-effect waves-light">
-                                          <i class="bx bx-check-double font-size-16 align-middle me-2"></i>
-                                          Kaydet
-                                      </button>
+                                <div class="row justify-content-between">
+                                    <div class="col-lg-4">
+                                        <h4 class="card-title mb-4">İçerik düzenleme formu</h4>
+                                    </div>
+                                    <div class="col-lg-8 d-flex justify-content-end pb-3">
+                                        <button class="m-1 btn  btn-outline-success waves-effect waves-light">
+                                            <i class="bx bx-check-double font-size-16 align-middle me-2"></i>
+                                            Güncelle
+                                        </button>
 
-                                  </div>
-                              </div>
+                                    </div>
+                                </div>
                                 <form class="outer-repeater create_content-form" method="post">
                                     <div data-repeater-list="outer-group" class="outer">
                                         <div data-repeater-item class="outer">
                                             <div class="form-group row mb-4">
                                                 <label for="taskname" class="col-form-label col-lg-2">İçerik Başlığı</label>
                                                 <div class="col-lg-10">
-                                                    <input id="taskname" name="title" type="text"
+                                                    <input id="taskname" name="title" value="{{$content->title}}" type="text"
                                                            class="form-control" placeholder="Başlık giriniz...">
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-4">
                                                 <label class="col-form-label col-lg-2">İçerik Detayı</label>
                                                 <div class="col-lg-10">
-                                                    <textarea id="taskdesc-editor" name="description"></textarea>
-
+                                                    <textarea  id="taskdesc-editor" name="description">
+                                                        {{$content->description}}
+                                                    </textarea>
                                                 </div>
-                                                <p class="text-muted text-center pt-2 pb-2">
-                                                    İçeriğin detayında hazır bloklar kullanabilirsin. BBCODE altyapısı ile hazırlanan bu blokları görmek için
-                                                    <a href="{{route('content_blocksinfo')}}" class="text-info" target="_blank"> buraya</a> tıklayabilirsin
-                                                </p>
                                             </div>
                                             <div class="form-group row mb-4">
                                                 <label class="col-form-label col-lg-2">Fotoğraf</label>
@@ -95,7 +92,7 @@
                                                 <label class=" col-lg-2">İndirme Kanalı</label>
                                                 <div class="col-lg-5">
                                                     <div class="form-check text-center mb-2">
-                                                        <input class="form-check-input" type="radio" name="download_channel" id="d_channel-radio[0]"  value="0" >
+                                                        <input class="form-check-input" type="radio" name="download_channel" id="d_channel-radio[0]" @if(!$content->download_channel) checked @endif value="0" >
                                                         <label class="form-check-label" for="d_channel-radio[0]">
                                                             İçeriği sunucuya yükle
                                                         </label>
@@ -103,7 +100,7 @@
                                                 </div>
                                                 <div class="col-lg-5">
                                                     <div class="form-check text-center mb-2">
-                                                        <input class="form-check-input" type="radio" name="download_channel" id="d_channel-radio[1]"  value="1" >
+                                                        <input class="form-check-input" type="radio" name="download_channel" id="d_channel-radio[1]" @if($content->download_channel) checked @endif value="1" >
                                                         <label class="form-check-label" for="d_channel-radio[1]">
                                                             İçeriğin linkini ekle
                                                         </label>
@@ -114,8 +111,9 @@
                                                 <label for="taskbudget" class="col-form-label col-lg-2">İçeriğin Linki</label>
                                                 <div class="col-lg-10">
                                                     <input id="taskbudget" name="link" type="text"
-                                                           placeholder="Enter Task Budget..." class="form-control" value="0">
+                                                           placeholder="Enter Task Budget..." class="form-control" @if($content->download_channel) value="{{$content->link}}"  @else value="0" @endif >
                                                     <p class="text-muted text-center p-2">İndirme kanalı sunucu değil ise burayı doldurun yok ise değere 0 girin.</p>
+
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -125,8 +123,11 @@
                                                         <input type="file" class="form-control" name="photo" id="inputGroupFile03">
                                                         <label class="input-group-text" for="inputGroupFile03">Yükle</label>
                                                     </div>
-                                                    <p class="text-muted text-center p-2">İndirme kanalı sunucu  ise dosyayı yükleyin, sıfırlamak için
+                                                    <p class="text-muted text-center pt-2">İndirme kanalı sunucu  ise dosyayı yükleyin, sıfırlamak için
                                                         <a href="#" class="text-info reset-file-content">buraya</a> tıklayabilirsiniz.
+                                                    </p>
+                                                    <p class="text-danger text-center ">
+                                                        Dosyanın güncellenmesini istemiyorsanız boş bırakın
                                                     </p>
                                                 </div>
                                             </div>
