@@ -41,10 +41,16 @@ Route::group(['middleware'=>'demoaccess'],function(){
         Route::post('/update_avatar',[\App\Http\Controllers\UserController::class,'change_avatar']);
         Route::post('/support_ticket',[\App\Http\Controllers\UserController::class,'create_support_ticket']);
     });
-    Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
-        Route::get('/create_content',function (){
-            return view("admin.create_content");
-        });
+    Route::group(['prefix'=>'admin/views/','middleware'=>'auth'],function(){
+
+       Route::get('/{any}',function($any){
+         if (view()->exists("admin.".$any)){
+             return view("admin.".$any);
+         }else{
+             return redirect()->route('home');
+         }
+       });
+
         Route::get('/list_content',function (){
             return view('admin.list_contents');
         });

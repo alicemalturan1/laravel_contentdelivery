@@ -20,7 +20,7 @@ class CreateBlogPostsTable extends Migration
             $table->longText("big_photo")->nullable();
             $table->longText("preview_photo")->nullable();
             $table->bigInteger('view_count')->default(0);
-            $table->longText("sources");
+
             $table->text("author_id");
             $table->timestamps();
         });

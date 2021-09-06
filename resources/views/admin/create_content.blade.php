@@ -6,8 +6,7 @@
     <meta charset="utf-8" />
     <title>İçerik Oluştur | Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
+
     <!-- App favicon -->
     <link rel="shortcut icon" href="/admin-assets/assets/images/favicon.ico">
 
@@ -77,9 +76,16 @@
                                                     <textarea id="taskdesc-editor" name="description"></textarea>
 
                                                 </div>
-                                                <p class="text-muted text-center pt-2 pb-2">
-                                                    İçeriğin detayında hazır bloklar kullanabilirsin. BBCODE altyapısı ile hazırlanan bu blokları görmek için
-                                                    <a href="{{route('content_blocksinfo')}}" class="text-info" target="_blank"> buraya</a> tıklayabilirsin
+                                                <p class=" pt-2 pb-2">
+                                                    <div style="padding-right: 0;" class="row  justify-content-end">
+                                                        <div  style="padding-right: 0;" class="col-lg-10">
+                                                            <div class="alert alert-info text-center alert-dismissible fade pr-0 show mb-0" role="alert">
+                                                                <i class="mdi mdi-alert-circle-outline me-2"></i>  İçeriğin detayında hazır bloklar kullanabilirsin. BBCODE altyapısı ile hazırlanan bu blokları görmek için
+                                                                <a href="{{route('content_blocksinfo')}}" class="text-info" target="_blank"> buraya</a> tıklayabilirsin
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </p>
                                             </div>
                                             <div class="form-group row mb-4">
@@ -94,16 +100,16 @@
                                             <div class="row justify-content-center pt-3 pb-2">
                                                 <label class=" col-lg-2">İndirme Kanalı</label>
                                                 <div class="col-lg-5">
-                                                    <div class="form-check text-center mb-2">
-                                                        <input class="form-check-input" type="radio" name="download_channel" id="d_channel-radio[0]"  value="0" >
+                                                    <div class="form-check text-center alert alert-primary mb-2">
+                                                        <input class="form-check-input cnt_dcinput" style="margin-left: 0;" type="radio" name="download_channel" id="d_channel-radio[0]"  value="0" >
                                                         <label class="form-check-label" for="d_channel-radio[0]">
                                                             İçeriği sunucuya yükle
                                                         </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-5">
-                                                    <div class="form-check text-center mb-2">
-                                                        <input class="form-check-input" type="radio" name="download_channel" id="d_channel-radio[1]"  value="1" >
+                                                    <div class="form-check text-center alert alert-primary mb-2">
+                                                        <input class="form-check-input cnt_dcinput" style="margin-left: 0;" type="radio" name="download_channel" id="d_channel-radio[1]"  value="1" >
                                                         <label class="form-check-label" for="d_channel-radio[1]">
                                                             İçeriğin linkini ekle
                                                         </label>
@@ -115,8 +121,19 @@
                                                 <div class="col-lg-10">
                                                     <input id="taskbudget" name="link" type="text"
                                                            placeholder="Enter Task Budget..." class="form-control" value="0">
-                                                    <p class="text-muted text-center p-2">İndirme kanalı sunucu değil ise burayı doldurun yok ise değere 0 girin.</p>
+
+
                                                 </div>
+                                                <p class=" pt-2 pb-2">
+                                                <div style="padding-right: 0;" class="row  justify-content-end">
+                                                    <div  style="padding-right: 0;" class="col-lg-10">
+                                                        <div class="alert text-center alert-info alert-dismissible fade pr-0 show mb-0" role="alert">
+                                                            <i class="mdi mdi-alert-circle-outline me-2"></i>  İndirme kanalı sunucu değil ise burayı doldurun yok ise değere 0 girin.
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </p>
                                             </div>
                                             <div class="row">
                                                 <label class="col-lg-2 col-form-label">İçerik dosyası</label>
@@ -125,10 +142,20 @@
                                                         <input type="file" class="form-control" name="photo" id="inputGroupFile03">
                                                         <label class="input-group-text" for="inputGroupFile03">Yükle</label>
                                                     </div>
-                                                    <p class="text-muted text-center p-2">İndirme kanalı sunucu  ise dosyayı yükleyin, sıfırlamak için
-                                                        <a href="#" class="text-info reset-file-content">buraya</a> tıklayabilirsiniz.
-                                                    </p>
+
+
                                                 </div>
+                                                <p class=" pt-2 pb-2">
+                                                <div style="padding-right: 0;" class="row  justify-content-end">
+                                                    <div  style="padding-right: 0;" class="col-lg-10">
+                                                        <div class="alert alert-warning text-center alert-dismissible fade pr-0 show mb-0" role="alert">
+                                                            <i class="mdi mdi-alert-circle-outline me-2"></i>  İndirme kanalı sunucu  ise dosyayı yükleyin, sıfırlamak için
+                                                            <a href="#" class="text-info reset-file-content">buraya</a> tıklayabilirsiniz.
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
