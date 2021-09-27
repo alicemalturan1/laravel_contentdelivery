@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Auth;
 
-class DemoAccess
+class PanelAuthCheck
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,8 @@ class DemoAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Cookie::get('demo_access')){
-            return response()->view('client.demo_access',['request_uri'=>$request->getRequestUri()]);
+        if (!Auth::check()){
+            return response()->redirectTo(route('panel_login'));
         }
         return $next($request);
     }

@@ -38,6 +38,7 @@
 
                     <h3 class="page-title" style="text-align: center;">Erişim Şifresi Gerekli</h3>
                     <form action="/accessdemo" method="post">
+                        <input type="hidden" name="request_uri" value="{{$request_uri}}">
                         @csrf
                         @if($errors->any())
                             <h5  style="text-align: center;color:#f5483c;">{{$errors->first()}}</h5>

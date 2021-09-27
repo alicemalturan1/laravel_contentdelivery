@@ -17,12 +17,10 @@
     <!-- datepicker css -->
     <link href="/admin-assets/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Css -->
-    <link href="/admin-assets/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+
     <!-- Icons Css -->
     <link href="/admin-assets/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="/admin-assets/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    @include('admin.section.panelstyle')
 
 </head>
 
@@ -80,7 +78,7 @@
                                             <td>{{"Kat"}}</td>
                                             <td>{{\App\Http\Controllers\ContentController::encode_date($item->created_at)}}</td>
                                             <td>{{\App\Http\Controllers\ContentController::encode_date($item->updated_at)}}</td>
-                                            <td class="d-flex justify-content-center">
+                                            <td class="d-flex align-items-center p-3 justify-content-center">
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input toggle_contentactive" data-id="{{$item->id}}" type="checkbox"  checked>
 

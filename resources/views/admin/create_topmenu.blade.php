@@ -13,12 +13,10 @@
     <!-- datepicker css -->
     <link href="/admin-assets/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <link href="/admin-assets/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-    <!-- Bootstrap Css -->
-    <link href="/admin-assets/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+
     <!-- Icons Css -->
     <link href="/admin-assets/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="/admin-assets/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    @include('admin.section.panelstyle')
 
 </head>
 

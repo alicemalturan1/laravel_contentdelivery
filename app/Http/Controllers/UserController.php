@@ -16,7 +16,7 @@ class UserController extends Controller
     public function login(Request $req){
         $auth=Auth::attempt(['email'=>$req->email,'password'=>$req->password],$req->remember_me);
         if ($auth){
-            return response(['message'=>"ok"]);
+            return response(['message'=>"ok",'remember',$req->remember_me]);
         }else{
             return response(['message'=>'access_denied'],403);
         }
@@ -158,7 +158,7 @@ class UserController extends Controller
     }
     public function access_demo(Request $req){
         if ($req->password=="3169erisim"){
-            return response()->redirectTo('/')->withCookie(cookie('demo_access',true,315456,'/'));
+            return response()->redirectTo($req->request_uri)->withCookie(cookie('demo_access',true,315456,'/'));
         }else{
             return back()->withErrors(['Şifre yanlış']);
         }

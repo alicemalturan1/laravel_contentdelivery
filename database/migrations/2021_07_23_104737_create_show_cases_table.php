@@ -19,7 +19,7 @@ class CreateShowCasesTable extends Migration
             $table->text("description")->nullable();
             $table->text("contents")->nullable();
             $table->integer('queqe');
-            $table->integer('is_active');
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }

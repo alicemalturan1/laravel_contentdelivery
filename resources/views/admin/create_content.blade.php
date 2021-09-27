@@ -13,12 +13,10 @@
     <!-- datepicker css -->
     <link href="/admin-assets/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Css -->
-    <link href="/admin-assets/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+
     <!-- Icons Css -->
     <link href="/admin-assets/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="/admin-assets/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    @include('admin.section.panelstyle')
 
 </head>
 
@@ -73,21 +71,10 @@
                                             <div class="form-group row mb-4">
                                                 <label class="col-form-label col-lg-2">İçerik Detayı</label>
                                                 <div class="col-lg-10">
-                                                    <textarea id="taskdesc-editor" name="description"></textarea>
+                                                    <textarea id="maxh-editor" name="description"></textarea>
 
                                                 </div>
-                                                <p class=" pt-2 pb-2">
-                                                    <div style="padding-right: 0;" class="row  justify-content-end">
-                                                        <div  style="padding-right: 0;" class="col-lg-10">
-                                                            <div class="alert alert-info text-center alert-dismissible fade pr-0 show mb-0" role="alert">
-                                                                <i class="mdi mdi-alert-circle-outline me-2"></i>  İçeriğin detayında hazır bloklar kullanabilirsin. BBCODE altyapısı ile hazırlanan bu blokları görmek için
-                                                                <a href="{{route('content_blocksinfo')}}" class="text-info" target="_blank"> buraya</a> tıklayabilirsin
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </p>
-                                            </div>
                                             <div class="form-group row mb-4">
                                                 <label class="col-form-label col-lg-2">Fotoğraf</label>
                                                 <div class="col-lg-10">

@@ -41,7 +41,11 @@ Route::group(['middleware'=>'demoaccess'],function(){
         Route::post('/update_avatar',[\App\Http\Controllers\UserController::class,'change_avatar']);
         Route::post('/support_ticket',[\App\Http\Controllers\UserController::class,'create_support_ticket']);
     });
-    Route::group(['prefix'=>'admin/views/','middleware'=>'auth'],function(){
+    Route::get("/admin/login",function(){
+        return view("admin.login");
+    })->name('panel_login');
+    Route::post('/admin/setPanelColor',[\App\Http\Controllers\Controller::class,'setPanelColor'])->middleware('auth');
+    Route::group(['prefix'=>'admin/views/','middleware'=>'auth','middleware'=>'panel_auth'],function(){
 
        Route::get('/{any}',function($any){
          if (view()->exists("admin.".$any)){
@@ -49,7 +53,7 @@ Route::group(['middleware'=>'demoaccess'],function(){
          }else{
              return redirect()->route('home');
          }
-       });
+       })->name('PanelView');
 
         Route::get('/list_content',function (){
             return view('admin.list_contents');

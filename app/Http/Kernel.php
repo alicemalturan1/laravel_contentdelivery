@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\DemoAccess;
+use App\Http\Middleware\PanelAuthCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,5 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'demoaccess'=>DemoAccess::class,
+        'panel_auth'=>PanelAuthCheck::class,
     ];
 }

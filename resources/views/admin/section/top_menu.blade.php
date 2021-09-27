@@ -35,7 +35,7 @@
                 </div>
                 <div class="dropdown d-inline-block">
                     <div class="form-check form-switch mb-3">
-                        <input type="checkbox" class="form-check-input theme-choice" id="dark-mode-switch"
+                        <input type="checkbox" class="form-check-input theme-choice" @if(session('panel_color')&&session('panel_color')=='dark') checked @endif id="dark-mode-switch"
                                 />
                         <label class="form-check-label" for="dark-mode-switch">Dark Mod</label>
                     </div>
@@ -132,7 +132,7 @@
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user" src="/admin-assets/assets/images/users/avatar-2.jpg"
+                        <img class="rounded-circle header-profile-user" src="{{\Illuminate\Support\Facades\Auth::user()->avatar}}"
                              alt="Header Avatar">
                         <span class="d-none d-xl-inline-block ms-1">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
