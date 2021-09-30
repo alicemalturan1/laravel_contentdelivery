@@ -143,13 +143,13 @@
                                                     <!-- end col -->
 
                                                     <div class="col-lg-5">
-                                                        <div class="card">
+                                                        <div class="card border border-success">
                                                             <div class="card-body">
 
                                                                 <!-- end dropdown -->
 
                                                                 <h4 class="card-title mb-4">Vitrindeki İçerikler</h4>
-                                                                <div id="complete-task" class="pb-1 task-list">
+                                                                <div id="complete-task" class="pb-3 pt-3 task-list">
 
 
                                                                 </div>

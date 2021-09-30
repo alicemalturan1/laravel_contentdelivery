@@ -1,6 +1,6 @@
 @php $color=''; @endphp
-@if(session('panel_color'))
-    @if(session('panel_color')=="dark")
+@if(Illuminate\Support\Facades\Cookie::get('panel_color'))
+    @if(Illuminate\Support\Facades\Cookie::get('panel_color')=="dark")
         @php
             $color='-dark';
         @endphp

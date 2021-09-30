@@ -35,9 +35,9 @@
                 </div>
                 <div class="dropdown d-inline-block">
                     <div class="form-check form-switch mb-3">
-                        <input type="checkbox" class="form-check-input theme-choice" @if(session('panel_color')&&session('panel_color')=='dark') checked @endif id="dark-mode-switch"
+                        <input type="checkbox" class="form-check-input theme-choice" @if(Illuminate\Support\Facades\Cookie::get('panel_color')&&Illuminate\Support\Facades\Cookie::get('panel_color')=='dark') checked @endif id="dark-mode-switch"
                                 />
-                        <label class="form-check-label" for="dark-mode-switch">Dark Mod</label>
+                        <label class="form-check-label" for="dark-mode-switch">Karanlık Mod</label>
                     </div>
 
                 </div>

@@ -102,11 +102,22 @@
                 </li>
                 <li class="menu-title">Yardım</li>
                 <li>
-                    <a href="calendar.html" class=" waves-effect">
+                    <a href="javascript: void(0);" class="has-arrow waves-effect" aria-expanded="false">
                         <i class="mdi mdi-bug"></i>
                         <span>Geliştirici Desteği</span>
                     </a>
+                    <ul class="sub-menu mm-collapse" aria-expanded="false">
+                        <li>
+                            <a href="{{route('PanelView',['any'=>'developer_support'])}}" class=" waves-effect">
+
+                                <span>Destek Bileti Oluştur</span>
+                            </a>
+                        </li>
+                        <li><a href="tasks-kanban.html">Biletler</a></li>
+                        <li><a href="tasks-create.html">Create Task</a></li>
+                    </ul>
                 </li>
+
                 <li>
                     <a href="calendar.html" class=" waves-effect">
                         <i class="mdi mdi-help-circle"></i>

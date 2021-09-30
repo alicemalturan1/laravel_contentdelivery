@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,17 @@ Route::group(['middleware'=>'demoaccess'],function(){
     Route::get("/admin/login",function(){
         return view("admin.login");
     })->name('panel_login');
+
+    Route::get('/admin/devmail',function(){
+        return view('mail.developer_support',  [
+            'name'=>'Ali Cemal Turan',
+            'content'=>'Dewamek sorunke yardımke plske ',
+            'subject'=>'Sorun olmuske',
+            'title'=>'Yardım edin',
+            'token'=>Crypt::encryptString('try-'.time().'1-'),
+        ]);
+    });
+    Route::post('/admin/sendDeveloperMail',[\App\Http\Controllers\MailController::class,'send_developer_support'])->middleware('auth');
     Route::post('/admin/setPanelColor',[\App\Http\Controllers\Controller::class,'setPanelColor'])->middleware('auth');
     Route::group(['prefix'=>'admin/views/','middleware'=>'auth','middleware'=>'panel_auth'],function(){
 

@@ -12,4 +12,15 @@ $(".panel_loginform").submit(function(e){
         setTimeout(()=>window.location.reload(),2500);
     }).catch(()=>{$(".panel_loginform .alert-danger").removeClass('d-none');});
 });
+$(".developersprtformsubmitbtn").click(()=>$(".createdevelopersupport-form").submit());
+$(".createdevelopersupport-form").submit(function(e){
+    e.preventDefault();
+    axios.post('/admin/sendDeveloperMail',$(this).serialize()).then(function(v){
+        if(v.data.status=='success'){
+            $(".sprtdev-mbx .alert-success").removeClass('d-none');
+        }else{
+            $(".sprtdev-mbx .alert-danger").removeClass('d-none');
+        }
+    });
+});
 });

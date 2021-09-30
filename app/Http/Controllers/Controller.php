@@ -15,14 +15,10 @@ class Controller extends BaseController
         $req->validate([
             'color'=>'required'
         ]);
-        if ($req->color=='dark'){
-            session(['panel_color'=>'dark']);
-        }else{
-            session(['panel_color'=>'light']);
-        }
+
         return response()->json([
             'color'=>$req->color,
             'status'=>'success'
-        ]);
+        ])->withCookie(cookie('panel_color',$req->color,315456,'/'));
     }
 }

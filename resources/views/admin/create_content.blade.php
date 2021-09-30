@@ -74,7 +74,18 @@
                                                     <textarea id="maxh-editor" name="description"></textarea>
 
                                                 </div>
+                                                <div class=" pt-3 pb-5">
+                                                    <div style="padding-right: 0;" class="row  justify-content-end">
+                                                        <div  style="padding-right: 0;" class="col-lg-10">
+                                                            <div class="alert alert-info text-center alert-dismissible fade pr-0 show mb-0" role="alert">
+                                                                <i class="mdi mdi-alert-circle-outline me-2"></i>  İçeriğin detayında hazır bloklar kullanabilirsin. BBCODE altyapısı ile hazırlanan bu blokları görmek için
+                                                                <a href="{{route('content_blocksinfo')}}" class="text-info" target="_blank"> buraya</a> tıklayabilirsin
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             <div class="form-group row mb-4">
                                                 <label class="col-form-label col-lg-2">Fotoğraf</label>
                                                 <div class="col-lg-10">
