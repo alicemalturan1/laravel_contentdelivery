@@ -17,9 +17,12 @@ class DemoAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Cookie::get('demo_access')){
-            return response()->view('client.demo_access',['request_uri'=>$request->getRequestUri()]);
+        if( \Illuminate\Support\Facades\Config::get('app.demo_mode')){
+            if (!Cookie::get('demo_access')){
+                return response()->view('client.demo_access',['request_uri'=>$request->getRequestUri()]);
+            }
         }
+
         return $next($request);
     }
 }

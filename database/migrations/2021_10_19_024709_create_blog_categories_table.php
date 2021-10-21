@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSupportTicketsTable extends Migration
+class CreateBlogCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateSupportTicketsTable extends Migration
      */
     public function up()
     {
-        Schema::create('support_tickets', function (Blueprint $table) {
+        Schema::create('blog_categories', function (Blueprint $table) {
             $table->id();
-            $table->text("title");
-            $table->text("user_id");
-            $table->text("reply_id")->nullable();
-            $table->text("reason");
-            $table->text("description");
-            $table->integer("presence")->default(0);
+            $table->text('name');
+            $table->text('description')->nullable();
+            $table->text('creator_id')->nullable();
+
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateSupportTicketsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('support_tickets');
+        Schema::dropIfExists('blog_categories');
     }
 }

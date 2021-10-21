@@ -4,6 +4,14 @@
         $(this).parent().addClass("border-primary");
 
 });
+
+$(".show_ticket_modalbtn").click(function(){
+    $(".list_support_ticketfromaxios").html("<div class='row py-5 align-items-center'><div class='col-lg-12 text-center'><div class='spinner-grow text-primary m-1' role='status'> <span class='sr-only'>Loading...</span> </div></div></div>");
+    axios.post('/admin/support_ticket/getModalContent',{"id":$(this).data("id")}).then(function(v){
+        $(".list_support_ticketfromaxios").html(v.data);
+    });
+});
+
 $(".panel_loginform").submit(function(e){
     e.preventDefault();
     axios.post('/login',$(this).serialize()).then( (v)=>{
@@ -12,7 +20,118 @@ $(".panel_loginform").submit(function(e){
         setTimeout(()=>window.location.reload(),2500);
     }).catch(()=>{$(".panel_loginform .alert-danger").removeClass('d-none');});
 });
+$(".custom-file-input-dashed").click(function(e){
+    e.preventDefault();
+    $("input[name="+$(this).data('name')+"]").click();
+});
 $(".developersprtformsubmitbtn").click(()=>$(".createdevelopersupport-form").submit());
+
+$(".content_file_reset-btn,.content_photo_reset-btn").click(function(){
+  if($(this).hasClass('content_file_reset-btn')){
+      $("input[name=content_file]").val('');
+    var a =  $(this).parent().parent().prepend('<div class="col-lg-10"><div class="alert alert-success"> Dosya başarıyla sıfırlandı </div></div>');
+    $(".content_fileinput_valuetext").text("Dosya seçilmedi");
+      setTimeout(()=>{a.children().eq(0).slideUp();},1400);
+    setTimeout(()=>{a.children().eq(0).remove();},1800);
+  }else{
+      $("input[name=content_photo]").val('');
+      var a =  $(this).parent().parent().prepend('<div class="col-lg-10"><div class="alert alert-success"> Fotoğraf başarıyla sıfırlandı </div></div>');
+      $(".content_photoinput_valuetext").text("Dosya seçilmedi");
+      setTimeout(()=>{a.children().eq(0).slideUp();},1400);
+      setTimeout(()=>{a.children().eq(0).remove();},1800);
+  }
+});
+var removing_link = "";
+
+$(document).on("change","input[name=content_photo]",(function(){$(".content_photoinput_valuetext").text($(this).val().split(/(\\|\/)/g).pop());}));
+$("input[name=content_file]").change(function(){$(".content_fileinput_valuetext").text($(this).val().split(/(\\|\/)/g).pop());});
+$(".remove_linkbtn").click(function (){removing_link = $(this).data('id');});
+$(".remove_blinkbtn").click(function (){removing_link = $(this).data('id');});
+$(".removelink_confirm-btn").click(function(){
+    axios.post('/admin/top_menu/remove',{'id':removing_link}).then((v)=>{
+        $(".close_removelinkmodal-btn").click();
+        $(".alerts_block").prepend('<div class="col-lg-12 pl-3 pr-3"><div class=" alert alert-success">Link başarıyla kaldırıldı</div></div>');
+        setTimeout(()=>{$(".alerts_block").children().slideUp();},1400);
+
+        setTimeout(()=>{window.location.reload();},1500);
+    }).catch(()=>{
+        $(".close_removelinkmodal-btn").click();
+        $(".alerts_block").prepend('<div class="col-lg-12 pl-3 pr-3"><div class=" alert alert-danger">Bir hata oluştu</div></div>');
+        setTimeout(()=>{$(".alerts_block").children().slideUp();},1600);
+
+    });
+});
+$(".removeblink_confirm-btn").click(function(){
+        axios.post('/admin/bottom_menu/remove',{'id':removing_link}).then((v)=>{
+            $(".close_removelinkmodal-btn").click();
+            $(".alerts_block").prepend('<div class="col-lg-12 pl-3 pr-3"><div class=" alert alert-success">Link başarıyla kaldırıldı</div></div>');
+            setTimeout(()=>{$(".alerts_block").children().slideUp();},1900);
+            setTimeout(()=>{$(".alerts_block").children().remove();},2200);
+            setTimeout(()=>{window.location.reload();},2400);
+        }).catch(()=>{
+            $(".close_removelinkmodal-btn").click();
+            $(".alerts_block").prepend('<div class="col-lg-12 pl-3 pr-3"><div class=" alert alert-danger">Bir hata oluştu</div></div>');
+            setTimeout(()=>{$(".alerts_block").children().slideUp();},1900);
+            setTimeout(()=>{$(".alerts_block").children().remove();},2200);
+        });
+    });
+$(".update_topmenuitem-form").submit(function(e){
+    e.preventDefault();
+    axios.post('/admin/top_menu/update',$(this).serialize()).then(()=>{
+        $(".alerts_block").prepend('<div class="col-lg-12 pl-3 pr-3"><div class=" alert alert-success">Güncelleme işlemi başarılı</div></div>');
+        setTimeout(()=>{$(".alerts_block").children().slideUp();},1900);
+        setTimeout(()=>{$(".alerts_block").children().remove();},2200);
+        setTimeout(()=>{window.location.reload();},2400);
+    }).catch(()=>{
+        $(".alerts_block").prepend('<div class="col-lg-12 pl-3 pr-3"><div class=" alert alert-danger">Bir hata oluştu</div></div>');
+        setTimeout(()=>{$(".alerts_block").children().slideUp();},1900);
+        setTimeout(()=>{$(".alerts_block").children().remove();},2000);
+    });
+});
+$(".update_bottommenuitem-form").submit(function(e){
+        e.preventDefault();
+        axios.post('/admin/bottom_menu/update',$(this).serialize()).then(()=>{
+            $(".alerts_block").prepend('<div class="col-lg-12 pl-3 pr-3"><div class=" alert alert-success">Güncelleme işlemi başarılı</div></div>');
+            setTimeout(()=>{$(".alerts_block").children().slideUp();},1900);
+            setTimeout(()=>{$(".alerts_block").children().remove();},2200);
+            setTimeout(()=>{window.location.reload();},2400);
+        }).catch(()=>{
+            $(".alerts_block").prepend('<div class="col-lg-12 pl-3 pr-3"><div class=" alert alert-danger">Bir hata oluştu</div></div>');
+            setTimeout(()=>{$(".alerts_block").children().slideUp();},1900);
+            setTimeout(()=>{$(".alerts_block").children().remove();},2000);
+        });
+    });
+$(".new_toplinkform").submit(function(e){
+    e.preventDefault();
+    axios.post('/admin/top_menu/create',$(this).serialize()).then((v)=>{
+        window.location.reload();
+    }).catch(()=>{
+       var a =  $(".new_toplinkform").children().eq(0).append("<div class='row'><div class='col-lg-12'><div class='alert alert-danger'>Hata oluştu, lütfen eksik veri göndermeyin</div></div></div>");
+       setTimeout(()=>{a.children().eq(a.children().length-1).remove();},2200);
+    });
+});
+$(".new_bottomlinkform").submit(function(e){
+        e.preventDefault();
+        axios.post('/admin/bottom_menu/create',$(this).serialize()).then((v)=>{
+            window.location.reload();
+        }).catch(()=>{
+            var a =  $(".new_toplinkform").children().eq(0).append("<div class='row'><div class='col-lg-12'><div class='alert alert-danger'>Hata oluştu, lütfen eksik veri göndermeyin</div></div></div>");
+            setTimeout(()=>{a.children().eq(a.children().length-1).remove();},2200);
+        });
+    });
+var apnlink="";
+$(".new_topmchild-btn").click(function(){apnlink=$(this).data('id');});
+$(".new_topmenuchild-form").submit(function(e){
+    e.preventDefault();
+    var data= new FormData(this);
+    data.append('parent_id',apnlink);
+    axios.post('/admin/top_menu/create',data).then(()=>{
+        window.location.reload();
+    }).catch(()=>{
+        var a =  $(".new_topmenuchild-form").children().eq(0).append("<div class='row'><div class='col-lg-12'><div class='alert alert-danger'>Hata oluştu, lütfen eksik veri göndermeyin</div></div></div>");
+        setTimeout(()=>{a.children().eq(a.children().length-1).remove();},2200);
+    });
+});
 $(".createdevelopersupport-form").submit(function(e){
     e.preventDefault();
     axios.post('/admin/sendDeveloperMail',$(this).serialize()).then(function(v){
@@ -22,5 +141,6 @@ $(".createdevelopersupport-form").submit(function(e){
             $(".sprtdev-mbx .alert-danger").removeClass('d-none');
         }
     });
+
 });
 });

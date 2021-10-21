@@ -88,7 +88,7 @@
                                                 <label class="col-lg-2">İçerikler</label>
                                                 <div class="col-lg-10 justify-content-between d-flex">
                                                     <div class="col-lg-6">
-                                                        <div class="card">
+                                                        <div class="card border">
                                                             <style>
                                                                 .contentkanbanbody{
                                                                     max-height: 600px;overflow-y: scroll;

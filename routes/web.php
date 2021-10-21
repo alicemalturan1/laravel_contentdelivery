@@ -57,7 +57,7 @@ Route::group(['middleware'=>'demoaccess'],function(){
     });
     Route::post('/admin/sendDeveloperMail',[\App\Http\Controllers\MailController::class,'send_developer_support'])->middleware('auth');
     Route::post('/admin/setPanelColor',[\App\Http\Controllers\Controller::class,'setPanelColor'])->middleware('auth');
-    Route::group(['prefix'=>'admin/views/','middleware'=>'auth','middleware'=>'panel_auth'],function(){
+    Route::group(['prefix'=>'admin/views/','middleware'=>'auth','middleware'=>'panel_auth','middleware'=>'panel_route_auth'],function(){
 
        Route::get('/{any}',function($any){
          if (view()->exists("admin.".$any)){
@@ -80,5 +80,18 @@ Route::group(['middleware'=>'demoaccess'],function(){
     });
     Route::post('/auth-check',[\App\Http\Controllers\UserController::class,'auth_check']);
     Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout']);
-
+    Route::group(['prefix'=>'/admin/top_menu/'],function(){
+        Route::post('/remove',[\App\Http\Controllers\MenuController::class,'remove_topmenu_item']);
+        Route::post('/create',[\App\Http\Controllers\MenuController::class,'create_topmenu_item']);
+        Route::post('/update',[\App\Http\Controllers\MenuController::class,'update_topmenu_item']);
+    });
+    Route::group(['prefix'=>'/admin/bottom_menu/'],function(){
+        Route::post('/remove',[\App\Http\Controllers\MenuController::class,'remove_bottommenu_item']);
+        Route::post('/create',[\App\Http\Controllers\MenuController::class,'create_bottommenu_item']);
+        Route::post('/update',[\App\Http\Controllers\MenuController::class,'update_bottommenu_item']);
+    });
+    Route::group(['prefix'=>'admin/support_ticket/'],function(){
+        Route::post('/update_presence',[\App\Http\Controllers\SupportTicketController::class,'update_presence']);
+        Route::post('/getModalContent',[\App\Http\Controllers\SupportTicketController::class,'show_modal']);
+    });
 });

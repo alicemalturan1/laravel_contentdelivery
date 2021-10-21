@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
 
 <head>
 
     <meta charset="utf-8" />
-    <title>Alt Menü  | Panel</title>
+    <title>Blog Kategorileri  | Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- App favicon -->
@@ -41,7 +41,7 @@
 
             <div class="page-content">
 
-                @include('admin.section.page_header',['title'=>'Alt Menü'])
+                @include('admin.section.page_header',['title'=>'Blog Kategorileri'])
 
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
@@ -51,38 +51,40 @@
                                     <div class="row">
                                         <div class="row justify-content-end pb-3">
                                             <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12">
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#new_link_modal" style="width: 100%;" class="m-1 btn  btn-outline-success waves-effect waves-light">
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#new_blogcategory_modal" style="width: 100%;" class="m-1 btn  btn-outline-success waves-effect waves-light">
                                                     <i class="fas fa-angle-double-right font-size-16 align-middle me-2"></i>
-                                                    Ana Link Oluştur
+                                                    Kategori Oluştur
                                                 </button>
 
                                             </div>
 
                                         </div>
                                         <div class="col-lg-9">
-                                            <div class="modal fade" id="new_link_modal" tabindex="-1" role="dialog"
+                                            <div class="modal fade" id="new_blogcategory_modal" tabindex="-1" role="dialog"
                                                  aria-labelledby="composemodalTitle" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="composemodalTitle"> Link Oluştur</h5>
+                                                            <h5 class="modal-title" id="composemodalTitle"> Kategori Oluştur</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                         </div>
-                                                        <form class="new_bottomlinkform">
+                                                        <form class="new_toplinkform">
                                                             <div class="modal-body">
 
                                                                 <div>
 
 
                                                                     <div class="mb-3">
-                                                                        <input type="text" class="form-control" name="text" placeholder="Metin">
+                                                                        <input type="text" class="form-control" name="text" placeholder="Kategori Adı giriniz...">
                                                                     </div>
                                                                     <div class="mb-3">
-                                                                        <input type="text" class="form-control" name="link" placeholder="Bağlantı">
+                                                                        <textarea name="description" class="form-control" placeholder="Açıklama giriniz..."
+                                                                                  rows="10" style="resize:none;"></textarea>
                                                                     </div>
                                                                     <div class="mb-3">
-                                                                        <input type="text" class="form-control" name="queqe" data-toggle="touchspin" placeholder="Sıra">
+
+
                                                                     </div>
 
                                                                 </div>
@@ -99,28 +101,29 @@
                                                 </div>
                                             </div>
 
-                                            <div class="modal fade" id="remove_blink_modal" tabindex="-1" role="dialog"
+                                            <div class="modal fade" id="remove_link_modal" tabindex="-1" role="dialog"
                                                  aria-labelledby="composemodalTitle" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="composemodalTitle">  Linki silmek istediğine emin misin ?</h5>
+                                                            <h5 class="modal-title" id="composemodalTitle">  Kategoriyi silmek istediğine emin misin ?</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <p>
-                                                                Link ile beraber şunlar da silinecek;
+                                                                Kategori ile beraber şunlar da silinecek;
                                                             </p>
 
                                                             <div class="plan-features p-4 text-muted mt-2">
+                                                                <p><i class="mdi mdi-check-bold text-primary me-4"></i>Kategorinin altındaki içerikler</p>
+                                                                <p><i class="mdi mdi-check-bold text-primary me-4"></i>İçeriklerin altındaki yorumlar</p>
 
-                                                                <p><i class="mdi mdi-check-bold text-primary me-4"></i>Kayıt tutuluyorsa işlem kayıtları</p>
                                                             </div>
 
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-success removeblink_confirm-btn" >Sil</button>
+                                                            <button type="button" class="btn btn-success removelink_confirm-btn" >Sil</button>
                                                             <button type="button" class="btn btn-danger close_removelinkmodal-btn" data-bs-dismiss="modal">İptal </button>
                                                         </div>
                                                     </div>
@@ -129,59 +132,58 @@
                                             <div class="alerts_block row">
 
                                             </div>
-                                            @if (count(\App\Models\FooterMenuItems::orderBy('queqe','asc')->get())<1)
+                                            @if (count(\App\Models\BlogCategory::all())<1)
                                                 <div class="col-lg-12 text-center font-size-14">
-                                                    Link bulunamadı, hemen ana link oluştur butonuna tıklayarak link oluşturabilirsiniz.
+                                                        Kategori bulunamadı, hemen kategori oluştur butonuna tıklayarak kategori oluşturabilirsiniz.
                                                 </div>
                                             @endif
                                             <div class="accordion" id="accordionExample">
-                                                @foreach(\App\Models\FooterMenuItems::orderBy('queqe','asc')->get() as $item)
+
+                                                @foreach(\App\Models\BlogCategory::all() as $item)
 
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="heading{{$item->id}}">
                                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$item->id}}" aria-expanded="false" aria-controls="collapse{{$item->id}}">
-                                                                {{$item->text}}
+                                                                {{$item->name}}
                                                             </button>
                                                         </h2>
                                                         <div id="collapse{{$item->id}}" class="accordion-collapse collapse" aria-labelledby="heading{{$item->id}}" data-bs-parent="#accordionExample" style="">
                                                             <div class="accordion-body">
                                                                 <div class="p-1 ">
                                                                     <div class="p-1" >
+                                                                        <div class="row justify-content-end">
 
-                                                                        <form class="update_bottommenuitem-form">
+
+                                                                            <div class="col-xl-3 col-lg-6 pt-1">
+                                                                                <button type="button"  style="width: 100%;" class="btn btn-danger remove_linkbtn" data-bs-toggle="modal" data-bs-target="#remove_link_modal" data-id="{{$item->id}}"> <i class="fas fa-ban"></i> Kaldır</button>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <form class="update_topmenuitem-form">
                                                                             <input type="hidden" name="id" value="{{$item->id}}">
                                                                             <div class="row p-1 mb-1">
                                                                                 <div class="col-lg-12">
-                                                                                    <label> Bağlantı</label>
-                                                                                    <input type="text" name="link" class="form-control" value="{{$item->link}}">
+                                                                                    <label> Kategori adı</label>
+                                                                                    <input type="text" name="link" class="form-control" value="{{$item->name}}">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row p-1 mb-1">
                                                                                 <div class="col-lg-12">
                                                                                     <label> Metin</label>
-                                                                                    <input type="text" name="text" class="form-control" value="{{$item->text}}">
+                                                                                    <textarea name="description" class="form-control"  rows="10">{{$item->description}}</textarea>
                                                                                 </div>
 
                                                                             </div>
-                                                                            <div class="row p-1 mb-1">
-                                                                                <div class="col-lg-12">
-                                                                                    <label >Sıra</label>
-                                                                                    <input data-toggle="touchspin"  name="queqe" type="text" value="{{$item->queqe}}">
-                                                                                </div>
 
-                                                                            </div>
                                                                             <div class="row justify-content-center pt-1">
                                                                                 <div class="col-lg-3 pt-1">
                                                                                     <button type="submit"  style="width: 100%;" class="btn btn-success"> <i class="fab fa-rev"></i> Güncelle</button>
                                                                                 </div>
-                                                                                <div class="col-lg-3 pt-1">
-                                                                                    <button type="button"  style="width: 100%;" class="btn btn-danger remove_blinkbtn" data-bs-toggle="modal" data-bs-target="#remove_blink_modal" data-id="{{$item->id}}"> <i class="fas fa-ban"></i> Kaldır</button>
-                                                                                </div>
+
                                                                             </div>
                                                                         </form>
                                                                     </div>
                                                                 </div>
-
 
                                                             </div>
                                                         </div>

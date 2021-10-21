@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SupportTicket;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -157,7 +158,7 @@ class UserController extends Controller
         }
     }
     public function access_demo(Request $req){
-        if ($req->password=="3169erisim"){
+        if ($req->password==Config::get('app.demo_pw')){
             return response()->redirectTo($req->request_uri)->withCookie(cookie('demo_access',true,315456,'/'));
         }else{
             return back()->withErrors(['Şifre yanlış']);

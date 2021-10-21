@@ -43,75 +43,114 @@
 
                 @include('admin.section.page_header',['title'=>'Blog Yazısı Oluştur'])
 
-                <div class="row">
+                <div class="row justify-content-center">
                     <div class="col-lg-12">
-                        <div class="card">
+                        <div class="card border" style="border-radius:1.2rem;">
                             <div class="card-body">
-                                <div class="row justify-content-between">
-                                    <div class="col-lg-4">
-                                        <h4 class="card-title mb-4">Blog yazısı oluşturma formu</h4>
-                                    </div>
-                                    <div class="col-lg-8 d-flex justify-content-end pb-3">
-                                        <button class="m-1 btn  btn-outline-success waves-effect waves-light">
-                                            <i class="bx bx-check-double font-size-16 align-middle me-2"></i>
-                                            Oluştur
-                                        </button>
+                                <form class="outer-repeater create_blogpost-form" method="post">
+                                   <div class="row">
+                                       <div class="row justify-content-end pb-3">
+                                           <div class="col-xl-2 col-lg-4 col-md-5 col-sm-12">
+                                               <button style="width: 100%;" class="m-1 btn  btn-outline-success waves-effect waves-light">
+                                                   <i class="fas fa-angle-double-right font-size-16 align-middle me-2"></i>
+                                                    Oluştur
+                                               </button>
 
-                                    </div>
-                                </div>
-                                <form class="outer-repeater create_content-form" method="post">
-                                    <div data-repeater-list="outer-group" class="outer">
-                                        <div data-repeater-item class="outer">
-                                            <div class="form-group row mb-4">
-                                                <label for="taskname" class="col-form-label col-lg-2">Başlık</label>
-                                                <div class="col-lg-10">
-                                                    <input id="taskname" name="name" type="text"
-                                                           class="form-control" placeholder="Başlık giriniz...">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-4">
-                                                <label class="col-form-label col-lg-2">İçerik </label>
-                                                <div class="col-lg-10">
-                                                    <textarea rows="30" id="maxh-editor"  class="form-control" style="resize: none;" name="description"></textarea>
+                                           </div>
 
-                                                </div>
-                                                <p class=" pt-2 pb-2">
-                                                <div style="padding-right: 0;" class="row  justify-content-end">
-                                                    <div  style="padding-right: 0;" class="col-lg-10">
-                                                        <div class="alert alert-info text-center alert-dismissible fade pr-0 show mb-0" role="alert">
-                                                            <i class="mdi mdi-alert-circle-outline me-2"></i>  İçeriğin detayında hazır bloklar kullanabilirsin. BBCODE altyapısı ile hazırlanan bu blokları görmek için
-                                                            <a href="{{route('content_blocksinfo')}}" class="text-info" target="_blank"> buraya</a> tıklayabilirsin
+                                       </div>
+                                       <div class="col-lg-9">
+                                           <div data-repeater-list="outer-group" class="outer">
+                                               <div data-repeater-item class="outer">
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                </p>
-                                            </div>
-                                            <div class="form-group row mb-4">
-                                                <label class="col-form-label col-lg-2">Fotoğraf</label>
-                                                <div class="col-lg-10">
-                                                    <div class="input-group ">
-                                                        <input type="file" class="form-control" name="photo" id="inputGroupFile02">
-                                                        <label class="input-group-text" for="inputGroupFile02">Yükle</label>
-                                                    </div>
-                                                </div>
-                                                <p class=" pt-2 pb-2">
-                                                <div style="padding-right: 0;" class="row  justify-content-end">
-                                                    <div  style="padding-right: 0;" class="col-lg-10">
-                                                        <div class="alert alert-warning text-center alert-dismissible fade pr-0 show mb-0" role="alert">
-                                                            <i class="mdi mdi-alert-circle-outline me-2"></i>  Sadece JPG ve PNG formatı kabul edilir.
+                                                   <div class="form-group row mb-4">
 
-                                                        </div>
-                                                    </div>
+                                                       <div class="col-lg-12">
+                                                           <input id="taskname" name="name" type="text"
+                                                                  class="form-control" placeholder="Başlık giriniz...">
+                                                       </div>
+                                                   </div>
+                                                   <div class="row mb-3">
+                                                       <div class="col-lg-12">
+                                                           <select class="form-control" name="category">
+                                                               <option value="default" selected>Kategori Seçiniz</option>
+                                                           </select>
+                                                       </div>
+                                                   </div>
+                                                   <div class="form-group row mb-4">
 
-                                                </div>
+                                                       <div class="col-lg-12">
+                                                           <textarea rows="30" id="maxh-editor"  class="form-control" style="resize: none;" name="description"></textarea>
 
-                                                </p>
-                                            </div>
+                                                       </div>
 
-                                        </div>
-                                    </div>
+
+
+                                                   </div>
+                                                   <div class="row">
+                                                       <div  class="col-lg-12">
+                                                           <div class="alert alert-info text-center alert-dismissible fade pr-0 show mb-0" role="alert">
+                                                               <i class="mdi mdi-alert-circle-outline me-2"></i>  İçeriğin detayında hazır bloklar kullanabilirsin. BBCODE altyapısı ile hazırlanan bu blokları görmek için
+                                                               <a href="{{route('content_blocksinfo')}}" class="text-info" target="_blank"> buraya</a> tıklayabilirsin
+
+                                                           </div>
+                                                       </div>
+                                                   </div>
+
+
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-lg-3 pt-3">
+                                           <div class="card bg-transparent  rounded-pill" >
+                                               <div class="card-body bg-transparent pt-0 ">
+
+                                                   <div class="row justify-content-center ">
+
+
+                                                       <input type="file" class="form-control d-none"  name="content_photo" accept="image/png,image/jpeg">
+
+                                                       <a class="col-lg-11    custom-file-input-dashed" data-name="content_photo" href="#">
+                                                           <div class="col-lg-12 card justify-content-center d-flex align-items-center" style="border-radius:14px;height: 440px;border:1px solid #eff2f7">
+
+
+                                                               <div class="col-lg-10 p-1 text-center">
+                                                                   <i class="dripicons-plus text-info" style="font-size:3.5rem;"></i>
+
+                                                                   <br>
+                                                                   <span class="text-dark font-family " style="font-size:1.2rem;">İçeriğin fotoğrafı</span>
+                                                                   <br><br>
+                                                                   <span  style="font-size:0.88rem;">İçeriği açıklayacak bir fotoğrafı buraya yükleyiniz, sadece jpg ve png formatı kabul edilir.</span>
+                                                               </div>
+                                                               <div class="col-lg-12 text-center content_photoinput_valuetext position-absolute p-4 " style="bottom:0;">
+                                                                   Dosya seçilmedi
+                                                               </div>
+
+
+                                                           </div>
+                                                       </a>
+
+
+
+
+                                                   </div>
+
+                                                   <div class="row justify-content-center">
+
+                                                       <div class="col-lg-10 p-1" >
+                                                           <button type="button" style="width:100%;" class="btn btn-icon btn-danger content_photo_reset-btn">
+                                                               <i class="fab fa-rev"></i>
+                                                               Fotoğrafı Sıfırla
+                                                           </button>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
                                 </form>
+
+
 
 
                             </div>

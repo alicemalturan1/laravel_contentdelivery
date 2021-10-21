@@ -46,6 +46,18 @@
 
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="mdi mdi-format-list-bulleted"></i><span class="badge rounded-pill bg-info float-end">5</span>
+                        <span>Listele</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('PanelView',['any'=>'list_blog_posts'])}}">Blog İçerikleri</a></li>
+                        <li><a href="{{route('PanelView',['any'=>'list_blog_categories'])}}">Blog Kategorileri</a></li>
+
+
+                    </ul>
+                </li>
                 <li class="menu-title">İçerik</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">

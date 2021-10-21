@@ -118,7 +118,8 @@ return [
     | will not be safe. Please do this before deploying an application!
     |
     */
-
+    'demo_mode'=>1,
+    'demo_pw'=>'ali123',
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
